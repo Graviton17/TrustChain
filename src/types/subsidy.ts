@@ -13,61 +13,17 @@ export interface SubsidyDocument {
   description?: string;
   totalBudget?: string;
   incentiveDetails: string; // JSON string in database
-  eligibility: string; // JSON string in database
-  applicationProcess?: string; // JSON string in database
-  resourceLinks?: string; // JSON string in database
-  aiTriggers?: string; // JSON string in database
-  sectors?: string[];
 }
 
 export interface ParsedSubsidy
-  extends Omit<
-    SubsidyDocument,
-    | "incentiveDetails"
-    | "eligibility"
-    | "applicationProcess"
-    | "resourceLinks"
-    | "aiTriggers"
-  > {
+  extends Omit<SubsidyDocument, "incentiveDetails"> {
   incentiveDetails: IncentiveDetails;
-  eligibility: EligibilityCriteria;
-  applicationProcess?: ApplicationProcess;
-  resourceLinks?: ResourceLinks;
-  aiTriggers?: AITriggers;
 }
 
 export interface IncentiveDetails {
   type: string;
   amount: string;
   currency: string;
-  paymentSchedule: string;
-  [key: string]: unknown;
-}
-
-export interface EligibilityCriteria {
-  minProduction: string;
-  businessType: string[];
-  certificationRequired: string[];
-  [key: string]: unknown;
-}
-
-export interface ApplicationProcess {
-  steps: string[];
-  documentsRequired: string[];
-  processingTime: string;
-  [key: string]: unknown;
-}
-
-export interface ResourceLinks {
-  website: string;
-  applicationForm: string;
-  guidelines: string;
-  [key: string]: unknown;
-}
-
-export interface AITriggers {
-  keywords: string[];
-  conditions: string[];
   [key: string]: unknown;
 }
 
@@ -76,7 +32,6 @@ export interface SubsidyFilters {
   region?: string;
   programType?: string;
   status?: string;
-  sector?: string;
   limit?: number;
   offset?: number;
 }

@@ -2,9 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { databases } from "@/models/server/config";
 import { db, SubsidiesCollection } from "@/models/name";
 import { Query } from "node-appwrite";
+import type { IncentiveDetails } from "@/types/subsidy";
 
-// Interface for Subsidy data
-interface SubsidyData {
+/**
+ * Interface for Subsidy input data (what the API receives from clients)
+ * All complex fields are expected as objects and will be converted to JSON strings for database storage
+ */
+interface SubsidyInputData {
   name: string;
   country: string;
   region?: string;
@@ -13,15 +17,8 @@ interface SubsidyData {
   status: string;
   description?: string;
   totalBudget?: string;
-  incentiveDetails: string; // JSON string
-  eligibility: string; // JSON string
-  applicationProcess?: string; // JSON string
-  resourceLinks?: string; // JSON string
-  aiTriggers?: string; // JSON string
-  sectors?: string[]; // Array of sectors
-}
-
-// GET - Fetch subsidies with optional filtering
+  incentiveDetails: IncentiveDetails; // Object input - will be stringified
+} // GET - Fetch subsidies with optional filtering
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -29,7 +26,6 @@ export async function GET(request: NextRequest) {
     const region = searchParams.get("region");
     const programType = searchParams.get("programType");
     const status = searchParams.get("status");
-    const sector = searchParams.get("sector");
     const limit = parseInt(searchParams.get("limit") || "25");
     const offset = parseInt(searchParams.get("offset") || "0");
 
@@ -48,9 +44,6 @@ export async function GET(request: NextRequest) {
     if (status) {
       queries.push(Query.equal("status", status));
     }
-    if (sector) {
-      queries.push(Query.contains("sectors", sector));
-    }
 
     // Add pagination
     queries.push(Query.limit(limit));
@@ -66,10 +59,6 @@ export async function GET(request: NextRequest) {
     const subsidies = response.documents.map((doc) => ({
       ...doc,
       incentiveDetails: JSON.parse(doc.incentiveDetails || "{}"),
-      eligibility: JSON.parse(doc.eligibility || "{}"),
-      applicationProcess: JSON.parse(doc.applicationProcess || "{}"),
-      resourceLinks: JSON.parse(doc.resourceLinks || "{}"),
-      aiTriggers: JSON.parse(doc.aiTriggers || "{}"),
     }));
 
     return NextResponse.json({
@@ -98,7 +87,11 @@ export async function GET(request: NextRequest) {
 // POST - Create a new subsidy
 export async function POST(request: NextRequest) {
   try {
-    const body: SubsidyData = await request.json();
+    const body: SubsidyInputData = await request.json();
+
+    // Debug logging
+    console.log("Received body:", JSON.stringify(body, null, 2));
+    console.log("incentiveDetails:", body.incentiveDetails);
 
     // Validate required fields
     if (!body.name || !body.country || !body.programType || !body.status) {
@@ -111,44 +104,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate and parse JSON fields
-    let incentiveDetails,
-      eligibility,
-      applicationProcess,
-      resourceLinks,
-      aiTriggers;
-
-    try {
-      incentiveDetails =
-        typeof body.incentiveDetails === "string"
-          ? body.incentiveDetails
-          : JSON.stringify(body.incentiveDetails);
-      eligibility =
-        typeof body.eligibility === "string"
-          ? body.eligibility
-          : JSON.stringify(body.eligibility);
-      applicationProcess =
-        typeof body.applicationProcess === "string"
-          ? body.applicationProcess
-          : JSON.stringify(body.applicationProcess || {});
-      resourceLinks =
-        typeof body.resourceLinks === "string"
-          ? body.resourceLinks
-          : JSON.stringify(body.resourceLinks || {});
-      aiTriggers =
-        typeof body.aiTriggers === "string"
-          ? body.aiTriggers
-          : JSON.stringify(body.aiTriggers || {});
-    } catch {
+    // Validate required complex fields
+    if (!body.incentiveDetails) {
       return NextResponse.json(
         {
           success: false,
-          error: "Invalid JSON in request body fields",
+          error: "Missing required field: incentiveDetails",
         },
         { status: 400 }
       );
     }
 
+    // Validate incentiveDetails structure
+    if (
+      !body.incentiveDetails.type ||
+      !body.incentiveDetails.amount ||
+      !body.incentiveDetails.currency
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "incentiveDetails must include type, amount, and currency",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Convert objects to JSON strings for storage
     const subsidyData = {
       name: body.name,
       country: body.country,
@@ -158,12 +140,7 @@ export async function POST(request: NextRequest) {
       status: body.status,
       description: body.description || "",
       totalBudget: body.totalBudget || "",
-      incentiveDetails,
-      eligibility,
-      applicationProcess,
-      resourceLinks,
-      aiTriggers,
-      sectors: body.sectors || [],
+      incentiveDetails: JSON.stringify(body.incentiveDetails),
     };
 
     const response = await databases.createDocument(
@@ -178,10 +155,6 @@ export async function POST(request: NextRequest) {
       data: {
         ...response,
         incentiveDetails: JSON.parse(response.incentiveDetails || "{}"),
-        eligibility: JSON.parse(response.eligibility || "{}"),
-        applicationProcess: JSON.parse(response.applicationProcess || "{}"),
-        resourceLinks: JSON.parse(response.resourceLinks || "{}"),
-        aiTriggers: JSON.parse(response.aiTriggers || "{}"),
       },
       message: "Subsidy created successfully",
     });
@@ -214,40 +187,27 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const body: Partial<SubsidyData> = await request.json();
+    const body: Partial<SubsidyInputData> = await request.json();
 
     // Prepare update data, converting objects to JSON strings where needed
-    const updateData: Record<string, unknown> = { ...body };
+    const updateData: Record<string, unknown> = {};
 
+    // Copy simple fields
+    if (body.name) updateData.name = body.name;
+    if (body.country) updateData.country = body.country;
+    if (body.region !== undefined) updateData.region = body.region;
+    if (body.governingBody !== undefined)
+      updateData.governingBody = body.governingBody;
+    if (body.programType) updateData.programType = body.programType;
+    if (body.status) updateData.status = body.status;
+    if (body.description !== undefined)
+      updateData.description = body.description;
+    if (body.totalBudget !== undefined)
+      updateData.totalBudget = body.totalBudget;
+
+    // Convert complex fields to JSON strings
     if (body.incentiveDetails) {
-      updateData.incentiveDetails =
-        typeof body.incentiveDetails === "string"
-          ? body.incentiveDetails
-          : JSON.stringify(body.incentiveDetails);
-    }
-    if (body.eligibility) {
-      updateData.eligibility =
-        typeof body.eligibility === "string"
-          ? body.eligibility
-          : JSON.stringify(body.eligibility);
-    }
-    if (body.applicationProcess) {
-      updateData.applicationProcess =
-        typeof body.applicationProcess === "string"
-          ? body.applicationProcess
-          : JSON.stringify(body.applicationProcess);
-    }
-    if (body.resourceLinks) {
-      updateData.resourceLinks =
-        typeof body.resourceLinks === "string"
-          ? body.resourceLinks
-          : JSON.stringify(body.resourceLinks);
-    }
-    if (body.aiTriggers) {
-      updateData.aiTriggers =
-        typeof body.aiTriggers === "string"
-          ? body.aiTriggers
-          : JSON.stringify(body.aiTriggers);
+      updateData.incentiveDetails = JSON.stringify(body.incentiveDetails);
     }
 
     const response = await databases.updateDocument(
@@ -262,10 +222,6 @@ export async function PUT(request: NextRequest) {
       data: {
         ...response,
         incentiveDetails: JSON.parse(response.incentiveDetails || "{}"),
-        eligibility: JSON.parse(response.eligibility || "{}"),
-        applicationProcess: JSON.parse(response.applicationProcess || "{}"),
-        resourceLinks: JSON.parse(response.resourceLinks || "{}"),
-        aiTriggers: JSON.parse(response.aiTriggers || "{}"),
       },
       message: "Subsidy updated successfully",
     });

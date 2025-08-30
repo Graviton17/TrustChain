@@ -5,6 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { getRoleFromUser, type UserRole } from "@/utils/roles";
 import type { ParsedSubsidy, SubsidyFilters } from "@/types/subsidy";
+import { PROGRAM_TYPES, SUBSIDY_STATUS } from "@/types/subsidy";
 
 const COUNTRIES = [
   "India",
@@ -17,14 +18,9 @@ const COUNTRIES = [
   "France",
 ];
 
-const PROGRAM_TYPES = [
-  "Production Incentive",
-  "Equipment Grant",
-  "Research Grant",
-  "Tax Credit",
-  "Low-Interest Loan",
-  "Infrastructure Support",
-];
+// Use centralized program types from types file
+const PROGRAM_TYPES_ARRAY = Object.values(PROGRAM_TYPES) as string[];
+const STATUS_ARRAY = Object.values(SUBSIDY_STATUS) as string[];
 
 export default function SubsidiesPage() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -36,7 +32,7 @@ export default function SubsidiesPage() {
   >({
     country: "",
     programType: "",
-    status: "Active",
+    status: SUBSIDY_STATUS.ACTIVE,
   });
   const [selectedSubsidy, setSelectedSubsidy] = useState<ParsedSubsidy | null>(
     null
@@ -77,13 +73,13 @@ export default function SubsidiesPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Active":
+      case SUBSIDY_STATUS.ACTIVE:
         return "bg-green-100 text-green-800";
-      case "Pending":
+      case SUBSIDY_STATUS.PENDING:
         return "bg-yellow-100 text-yellow-800";
-      case "Suspended":
+      case SUBSIDY_STATUS.SUSPENDED:
         return "bg-red-100 text-red-800";
-      case "Closed":
+      case SUBSIDY_STATUS.CLOSED:
         return "bg-gray-100 text-gray-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -175,7 +171,7 @@ export default function SubsidiesPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">All Program Types</option>
-                    {PROGRAM_TYPES.map((type) => (
+                    {PROGRAM_TYPES_ARRAY.map((type) => (
                       <option key={type} value={type}>
                         {type}
                       </option>
@@ -195,10 +191,11 @@ export default function SubsidiesPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">All Statuses</option>
-                    <option value="Active">Active</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Suspended">Suspended</option>
-                    <option value="Closed">Closed</option>
+                    {STATUS_ARRAY.map((status) => (
+                      <option key={status} value={status}>
+                        {status}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -255,30 +252,6 @@ export default function SubsidiesPage() {
                         <div className="flex items-center text-sm text-gray-600">
                           <span className="w-20 font-medium">Budget:</span>
                           <span>{subsidy.totalBudget}</span>
-                        </div>
-                      )}
-                      {subsidy.sectors && subsidy.sectors.length > 0 && (
-                        <div className="flex items-start text-sm text-gray-600">
-                          <span className="w-20 font-medium flex-shrink-0">
-                            Sectors:
-                          </span>
-                          <span className="flex flex-wrap gap-1">
-                            {subsidy.sectors
-                              .slice(0, 2)
-                              .map((sector, index) => (
-                                <span
-                                  key={index}
-                                  className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                                >
-                                  {sector}
-                                </span>
-                              ))}
-                            {subsidy.sectors.length > 2 && (
-                              <span className="text-xs text-gray-500">
-                                +{subsidy.sectors.length - 2} more
-                              </span>
-                            )}
-                          </span>
                         </div>
                       )}
                     </div>
@@ -374,24 +347,6 @@ export default function SubsidiesPage() {
                         </p>
                       </div>
                     )}
-                    {selectedSubsidy.sectors &&
-                      selectedSubsidy.sectors.length > 0 && (
-                        <div>
-                          <span className="text-sm font-medium text-gray-500">
-                            Sectors:
-                          </span>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {selectedSubsidy.sectors.map((sector, index) => (
-                              <span
-                                key={index}
-                                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                              >
-                                {sector}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
                   </div>
                   {selectedSubsidy.description && (
                     <div className="mt-4">
@@ -422,34 +377,6 @@ export default function SubsidiesPage() {
                                 </span>
                                 <p className="text-sm text-green-900">
                                   {String(value)}
-                                </p>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                {/* Eligibility */}
-                {selectedSubsidy.eligibility &&
-                  Object.keys(selectedSubsidy.eligibility).length > 0 && (
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        Eligibility Criteria
-                      </h4>
-                      <div className="bg-blue-50 p-4 rounded-lg">
-                        <div className="space-y-2">
-                          {Object.entries(selectedSubsidy.eligibility).map(
-                            ([key, value]) => (
-                              <div key={key}>
-                                <span className="text-sm font-medium text-blue-700 capitalize">
-                                  {key.replace(/([A-Z])/g, " $1")}:
-                                </span>
-                                <p className="text-sm text-blue-900">
-                                  {Array.isArray(value)
-                                    ? value.join(", ")
-                                    : String(value)}
                                 </p>
                               </div>
                             )
