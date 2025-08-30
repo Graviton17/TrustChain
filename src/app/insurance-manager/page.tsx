@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Shield, Plus, Edit2, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { Shield, Plus, Trash2 } from 'lucide-react';
 import { InsurancePolicy, CreateInsurancePolicyRequest } from '@/types/insurance';
 
 const InsuranceManager = () => {

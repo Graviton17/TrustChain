@@ -4,10 +4,10 @@ import { InsuranceDatabase } from "@/utils/insuranceDatabase";
 // GET /api/insurance/provider/[providerId] - Get insurance policies by provider ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { providerId: string } }
+  { params }: { params: Promise<{ providerId: string }> }
 ) {
   try {
-    const { providerId } = params;
+    const { providerId } = await params;
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "25");
     const offset = parseInt(searchParams.get("offset") || "0");
