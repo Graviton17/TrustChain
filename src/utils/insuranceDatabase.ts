@@ -1,6 +1,6 @@
 import { databases } from "@/models/server/config";
 import { db, InsurancePoliciesCollection } from "@/models/name";
-import { Query } from "node-appwrite";
+import { Query, ID } from "node-appwrite";
 import {
   InsurancePolicy,
   CreateInsurancePolicyRequest,
@@ -8,16 +8,53 @@ import {
 } from "@/types/insurance";
 
 export class InsuranceDatabase {
+  // Helper function to validate and normalize URL
+  private static validateAndNormalizeUrl(url: string): string {
+    if (!url || url.trim() === "") {
+      return "";
+    }
+
+    let normalizedUrl = url.trim();
+
+    // Add https:// if no protocol is provided
+    if (!/^https?:\/\//i.test(normalizedUrl)) {
+      normalizedUrl = `https://${normalizedUrl}`;
+    }
+
+    // Validate the URL format
+    const urlPattern = /^https?:\/\/.+/i;
+    if (!urlPattern.test(normalizedUrl)) {
+      throw new Error("Invalid terms_url format. Must be a valid URL.");
+    }
+
+    return normalizedUrl;
+  }
+
   // Create a new insurance policy
   static async createInsurancePolicy(
     data: CreateInsurancePolicyRequest
   ): Promise<InsurancePolicy> {
     try {
+      // Validate and normalize terms_url if provided
+      const normalizedData = { ...data };
+      if (data.terms_url && data.terms_url.trim() !== "") {
+        normalizedData.terms_url = this.validateAndNormalizeUrl(data.terms_url);
+      }
+
+      // Prepare data for Appwrite - remove empty terms_url to avoid validation
+      const documentData = {
+        ...normalizedData,
+        terms_url:
+          normalizedData.terms_url && normalizedData.terms_url.trim() !== ""
+            ? normalizedData.terms_url
+            : undefined,
+      };
+
       const policy = await databases.createDocument(
         db,
         InsurancePoliciesCollection,
-        "unique()",
-        data
+        ID.unique(),
+        documentData
       );
       return policy as unknown as InsurancePolicy;
     } catch (error) {
@@ -84,11 +121,26 @@ export class InsuranceDatabase {
     data: UpdateInsurancePolicyRequest
   ): Promise<InsurancePolicy> {
     try {
+      // Validate and normalize terms_url if provided
+      const normalizedData = { ...data };
+      if (data.terms_url && data.terms_url.trim() !== "") {
+        normalizedData.terms_url = this.validateAndNormalizeUrl(data.terms_url);
+      }
+
+      // Prepare data for Appwrite - remove empty terms_url to avoid validation
+      const updateData = {
+        ...normalizedData,
+        terms_url:
+          normalizedData.terms_url && normalizedData.terms_url.trim() !== ""
+            ? normalizedData.terms_url
+            : undefined,
+      };
+
       const policy = await databases.updateDocument(
         db,
         InsurancePoliciesCollection,
         id,
-        data
+        updateData
       );
       return policy as unknown as InsurancePolicy;
     } catch (error) {
