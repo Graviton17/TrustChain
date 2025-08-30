@@ -120,3 +120,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Progress bar component styles */
+.progress-bar-fill {
+  width: var(--progress-width);
+}

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Check, ChevronRight, Building, FileText, DollarSign, Zap, Shield, ArrowLeft, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import React from "react";
 
 // Header Component
 const Header = () => (
@@ -12,7 +11,9 @@ const Header = () => (
           </div>
           <div>
             <h1 className="text-xl font-bold text-gray-900">TrustChain</h1>
-            <p className="text-xs text-gray-600">Transparent Subsidy Disbursement for Green Hydrogen</p>
+            <p className="text-xs text-gray-600">
+              Transparent Subsidy Disbursement for Green Hydrogen
+            </p>
           </div>
         </div>
         <div className="flex items-center space-x-4">
@@ -24,3 +25,5 @@ const Header = () => (
     </div>
   </header>
 );
+
+export default Header;

@@ -1,7 +1,24 @@
-import React, { useState } from 'react';
-import { Check, ChevronRight, Building, FileText, DollarSign, Zap, Shield, ArrowLeft, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import React from "react";
+import { AlertCircle } from "lucide-react";
+
 // Form Input Components
-const FormInput = ({ label, type = "text", placeholder, value, onChange, required = false, error }) => (
+const FormInput = ({
+  label,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  required = false,
+  error,
+}: {
+  label: string;
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  error?: string;
+}) => (
   <div className="space-y-2 group">
     <label className="block text-sm font-semibold text-gray-700 group-focus-within:text-emerald-600 transition-colors">
       {label} {required && <span className="text-red-500">*</span>}
@@ -12,9 +29,9 @@ const FormInput = ({ label, type = "text", placeholder, value, onChange, require
       value={value}
       onChange={onChange}
       className={`w-full px-4 py-3 border rounded-xl transition-all duration-300 ${
-        error 
-          ? 'border-red-300 focus:ring-4 focus:ring-red-100 focus:border-red-500 bg-red-50' 
-          : 'border-gray-200 focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 hover:border-gray-300 bg-white hover:shadow-sm'
+        error
+          ? "border-red-300 focus:ring-4 focus:ring-red-100 focus:border-red-500 bg-red-50"
+          : "border-gray-200 focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 hover:border-gray-300 bg-white hover:shadow-sm"
       }`}
     />
     {error && (
@@ -26,7 +43,21 @@ const FormInput = ({ label, type = "text", placeholder, value, onChange, require
   </div>
 );
 
-const FormSelect = ({ label, options, value, onChange, required = false, error }) => (
+const FormSelect = ({
+  label,
+  options,
+  value,
+  onChange,
+  required = false,
+  error,
+}: {
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  required?: boolean;
+  error?: string;
+}) => (
   <div className="space-y-2 group">
     <label className="block text-sm font-semibold text-gray-700 group-focus-within:text-emerald-600 transition-colors">
       {label} {required && <span className="text-red-500">*</span>}
@@ -34,10 +65,11 @@ const FormSelect = ({ label, options, value, onChange, required = false, error }
     <select
       value={value}
       onChange={onChange}
+      aria-label={label}
       className={`w-full px-4 py-3 border rounded-xl transition-all duration-300 ${
-        error 
-          ? 'border-red-300 focus:ring-4 focus:ring-red-100 focus:border-red-500 bg-red-50' 
-          : 'border-gray-200 focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 hover:border-gray-300 bg-white hover:shadow-sm'
+        error
+          ? "border-red-300 focus:ring-4 focus:ring-red-100 focus:border-red-500 bg-red-50"
+          : "border-gray-200 focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 hover:border-gray-300 bg-white hover:shadow-sm"
       }`}
     >
       <option value="">Select {label}</option>
@@ -56,13 +88,24 @@ const FormSelect = ({ label, options, value, onChange, required = false, error }
   </div>
 );
 
-const FormCheckbox = ({ label, checked, onChange, description }) => (
+const FormCheckbox = ({
+  label,
+  checked,
+  onChange,
+  description,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  description?: string;
+}) => (
   <div className="p-4 rounded-xl border border-gray-200 hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-300 cursor-pointer group">
     <div className="flex items-start space-x-3">
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
+        aria-label={label}
         className="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 mt-0.5"
       />
       <div className="flex-1">
@@ -76,3 +119,6 @@ const FormCheckbox = ({ label, checked, onChange, description }) => (
     </div>
   </div>
 );
+
+export { FormInput, FormSelect, FormCheckbox };
+export default FormInput;
