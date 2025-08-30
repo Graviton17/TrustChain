@@ -2,6 +2,9 @@
 import { motion } from "framer-motion"
 import { FaGlobe, FaLink } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import SignIn from "@/app/(auth)/sign-in/page"
+import SignUp from "@/app/(auth)/sign-up/page"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -127,16 +130,19 @@ const Header = () => {
                 <DropdownMenuLabel>Choose language</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>Deutsch</DropdownMenuItem>
-                <DropdownMenuItem>हिन्दी</DropdownMenuItem>
-                <DropdownMenuItem>日本語</DropdownMenuItem>
+                <DropdownMenuItem>Gujarati - ગુજરાતી</DropdownMenuItem>
+                <DropdownMenuItem> Hindi - हिन्दी</DropdownMenuItem>
+                <DropdownMenuItem>Tamil - தமிழ்</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
 
-          <div className="flex items-center">
-            <Button className="bg-emerald-500 hover:bg-emerald-600 text-gray-900 transition-transform hover:-translate-y-0.5">
-              Join TrustChain
+          <div className="flex items-center gap-4">
+            <Button asChild variant="ghost" className="transition-transform hover:-translate-y-0.5">
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+            <Button className="bg-emerald-500 hover:bg-emerald-600 text-white transition-transform hover:-translate-y-0.5">
+              <Link href="/sign-up">Sign Up</Link>
             </Button>
           </div>
         </div>
