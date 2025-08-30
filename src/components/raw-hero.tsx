@@ -1,4 +1,4 @@
-import { FaLink, FaBolt, FaShieldAlt, FaGlobe } from "react-icons/fa"
+import { FaLink, FaBolt, FaShieldAlt, FaGlobe } from "react-icons/fa";
 
 const HeroSection = () => {
   return (
@@ -7,8 +7,9 @@ const HeroSection = () => {
         Revolutionary Blockchain-Powered Green Hydrogen Subsidies
       </h1>
       <p className="text-xl md:text-2xl max-w-4xl mx-auto text-gray-300 mb-8">
-        TrustChain eliminates fraud, accelerates disbursements, and ensures complete transparency in green hydrogen
-        subsidy management through cutting-edge blockchain technology
+        TrustChain eliminates fraud, accelerates disbursements, and ensures
+        complete transparency in green hydrogen subsidy management through
+        cutting-edge blockchain technology
       </p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-10 text-lg">
         <div className="flex items-center justify-center space-x-2">
@@ -39,16 +40,15 @@ const HeroSection = () => {
         </button>
         {/* STATIC_ASSET: This button links to a PDF file. */}
         <a
-          href="/whitepaper.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-gold text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-gold-dark transition-colors"
+          href="/TrustChain-Whitepaper.pdf"
+          download="TrustChain-Whitepaper.pdf"
+          className="bg-yellow-500 px-6 py-2 rounded-lg text-white font-semibold shadow-md hover:bg-yellow-600 transition duration-200"
         >
           Download Whitepaper
         </a>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;
