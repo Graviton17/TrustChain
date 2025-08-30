@@ -1,0 +1,216 @@
+"use client";
+
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { getRoleFromUser } from "@/utils/roles";
+
+export default function CustomerDashboard() {
+  const { user, isLoaded, isSignedIn } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
+
+    if (isLoaded && user) {
+      const userRole = getRoleFromUser(user);
+      if (userRole !== "customer") {
+        // Redirect to appropriate dashboard based on role
+        switch (userRole) {
+          case "government":
+            router.push("/government-dashboard");
+            break;
+          case "producer":
+            router.push("/producer-dashboard");
+            break;
+          default:
+            router.push("/dashboard");
+        }
+      }
+    }
+  }, [isLoaded, isSignedIn, user, router]);
+
+  if (!isLoaded || !isSignedIn) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center">
+              <h1 className="text-2xl font-bold text-gray-900">
+                Customer Dashboard
+              </h1>
+              <span className="ml-3 text-2xl">👤</span>
+            </div>
+            <div className="text-sm text-gray-600">
+              Welcome,{" "}
+              {user?.firstName || user?.emailAddresses?.[0]?.emailAddress}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Green Hydrogen Market */}
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-green-600 text-lg">🔋</span>
+                  </div>
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">
+                      Available Products
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900">
+                      12 Green Hydrogen Products
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-50 px-5 py-3">
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-medium text-cyan-700 hover:text-cyan-900"
+                >
+                  Browse marketplace
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* My Orders */}
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span className="text-blue-600 text-lg">📦</span>
+                  </div>
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">
+                      Active Orders
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900">
+                      3 Orders
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-50 px-5 py-3">
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-medium text-cyan-700 hover:text-cyan-900"
+                >
+                  View all orders
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Subsidy Benefits */}
+          <div className="bg-white overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <span className="text-yellow-600 text-lg">💰</span>
+                  </div>
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 truncate">
+                      Subsidy Savings
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900">
+                      $2,450 Saved
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-50 px-5 py-3">
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-medium text-cyan-700 hover:text-cyan-900"
+                >
+                  View subsidy details
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="mt-8">
+          <div className="bg-white shadow rounded-lg">
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                Recent Activity
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mr-4">✅</div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      Order #HG-2024-001 delivered
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Green hydrogen fuel cells - 2 days ago
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mr-4">🚚</div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      Order #HG-2024-002 in transit
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Hydrogen storage tank - Expected delivery: Tomorrow
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mr-4">💸</div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      Subsidy applied to Order #HG-2024-003
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Saved $850 on renewable energy equipment - 1 week ago
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
