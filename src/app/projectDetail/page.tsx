@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Header from "@/components/Header";
 import {
   Building,
   FileText,
@@ -14,7 +15,6 @@ import {
 import type { ProjectApiResponse, CompleteProjectData } from "@/types/project";
 
 // Import all the form components
-import Header from "@/components/project-detail-form/header";
 import StepIndicator from "@/components/project-detail-form/step-indicator";
 import ProgressBar from "@/components/project-detail-form/progressbar";
 import ProjectInformationForm from "@/components/project-detail-form/project-information";

@@ -1,10 +1,9 @@
 "use client"
 import { motion } from "framer-motion"
-import { FaGlobe, FaLink } from "react-icons/fa"
+import { FaGlobe } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import SignIn from "@/app/(auth)/sign-in/page"
-import SignUp from "@/app/(auth)/sign-up/page"
+// removed direct page imports (not used)
 import Image from 'next/image'
 import { useChatbot } from "@/app/contexts/ChatbotContext"
 
@@ -48,7 +47,7 @@ const Header = () => {
           </div>
 
           <nav role="navigation" aria-label="Primary" className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <a
+            <Link
               href="/"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
@@ -57,7 +56,7 @@ const Header = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 bg-foreground/40 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
-            </a>
+            </Link>
 
             {/* Solutions (group all core features) */}
             <DropdownMenu>
@@ -109,7 +108,7 @@ const Header = () => {
               />
             </button>
 
-            <a
+            <Link
               href="/faq"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
@@ -118,9 +117,9 @@ const Header = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 bg-foreground/40 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/insurance"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
@@ -129,7 +128,7 @@ const Header = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 bg-foreground/40 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
-            </a>
+            </Link>
 
             {/* Multi-language support */}
             <DropdownMenu>
