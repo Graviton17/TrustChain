@@ -1,6 +1,7 @@
 import { databases } from "../config";
 import { db } from "../../name";
 import createUsersCollection from "./user.collections";
+import createSubsidiesCollection from "./subsidies.collection";
 
 export default async function getOrCreateDatabase() {
   try {
@@ -13,7 +14,10 @@ export default async function getOrCreateDatabase() {
       await databases.create(db, db);
       console.log("Database created successfully.");
 
-      await Promise.all([createUsersCollection()]);
+      await Promise.all([
+        createUsersCollection(),
+        createSubsidiesCollection(),
+      ]);
       console.log("Collections created successfully.");
     } catch (createError) {
       console.error("Failed to create database:", createError);

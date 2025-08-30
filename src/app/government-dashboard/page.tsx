@@ -64,6 +64,34 @@ export default function GovernmentDashboard() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Quick Actions */}
+        <div className="mb-8">
+          <div className="bg-white shadow rounded-lg">
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                Quick Actions
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button
+                  onClick={() => router.push("/subsidies")}
+                  className="flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <span className="mr-2">💰</span>
+                  Manage Subsidies
+                </button>
+                <button className="flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  <span className="mr-2">📊</span>
+                  View Analytics
+                </button>
+                <button className="flex items-center justify-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  <span className="mr-2">📋</span>
+                  Review Applications
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Total Subsidies Disbursed */}
           <div className="bg-white overflow-hidden shadow rounded-lg">
@@ -147,6 +175,58 @@ export default function GovernmentDashboard() {
                     </dd>
                   </dl>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="mt-8">
+          <div className="bg-white shadow rounded-lg">
+            <div className="px-4 py-5 sm:p-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                Quick Actions
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button
+                  onClick={() => router.push("/subsidies-manager")}
+                  className="flex items-center p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                >
+                  <div className="text-2xl mr-3">⚙️</div>
+                  <div className="text-left">
+                    <div className="text-sm font-medium text-blue-900">
+                      Manage Subsidies
+                    </div>
+                    <div className="text-xs text-blue-700">
+                      Create, edit, and manage subsidy programs
+                    </div>
+                  </div>
+                </button>
+                <button
+                  onClick={() => router.push("/subsidies")}
+                  className="flex items-center p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+                >
+                  <div className="text-2xl mr-3">💰</div>
+                  <div className="text-left">
+                    <div className="text-sm font-medium text-green-900">
+                      Browse Subsidies
+                    </div>
+                    <div className="text-xs text-green-700">
+                      View all available subsidy programs
+                    </div>
+                  </div>
+                </button>
+                <button className="flex items-center p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
+                  <div className="text-2xl mr-3">📊</div>
+                  <div className="text-left">
+                    <div className="text-sm font-medium text-purple-900">
+                      Analytics Dashboard
+                    </div>
+                    <div className="text-xs text-purple-700">
+                      View detailed reports and analytics
+                    </div>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
