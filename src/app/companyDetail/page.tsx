@@ -107,11 +107,31 @@ const initialErrors = {
 };
 
 export default function CompanyApplicationPage() {
+  const router = useRouter(); // <-- Move this here, at the top!
+
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Redirect after successful submission — hook must run unconditionally
+  React.useEffect(() => {
+    if (!isSubmitted) return;
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const role = searchParams.get("role") || "producer";
+
+    const timer = setTimeout(() => {
+      if (role === "producer") {
+        router.push("/projectDetail");
+      } else {
+        router.push("/customer-dashboard");
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isSubmitted, router]);
 
   // Update form data - compatible with existing company form components
   const handleInputChange = (field: string, value: string) => {
@@ -431,25 +451,8 @@ export default function CompanyApplicationPage() {
     }
   };
 
-  // If form is submitted, redirect based on user role
+  // If form is submitted, render the success message (redirect handled by effect)
   if (isSubmitted) {
-    const router = useRouter();
-    const searchParams = new URLSearchParams(window.location.search);
-    const role = searchParams.get('role') || 'producer';
-    
-    // Redirect after showing success message for 2 seconds
-    React.useEffect(() => {
-      const timer = setTimeout(() => {
-        if (role === 'producer') {
-          router.push('/projectDetail');
-        } else {
-          router.push('/customer-dashboard');
-        }
-      }, 2000);
-      
-      return () => clearTimeout(timer);
-    }, [router]);
-
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 py-8">
