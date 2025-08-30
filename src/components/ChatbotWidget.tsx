@@ -16,7 +16,7 @@ const ChatbotWidget = () => {
   useEffect(() => {
     if (isMounted && isChatOpen) {
       const script = document.createElement('script');
-      script.src = "'https://www.noupe.com/embed/0198fbda55667322b70ec631e99c087e5349.js'"; // PASTE YOUR SCRIPT URL HERE
+      script.src = "https://www.noupe.com/embed/0198fbda55667322b70ec631e99c087e5349.js"; // PASTE YOUR SCRIPT URL HERE
       script.async = true;
       script.id = 'chatbot-script';
       document.body.appendChild(script);

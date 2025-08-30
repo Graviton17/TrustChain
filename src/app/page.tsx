@@ -17,7 +17,6 @@ export default function Page() {
   };
   return (
     <main>
-      <Header />
       <HeroSection onStartApplication={handleStartApplication} />
       <StatsSection />
       <FeaturesSection />

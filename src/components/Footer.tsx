@@ -1,8 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 
 const Footer = () => {
+  const router = useRouter();
   return (
     <footer className="bg-background border-t border-border">
       <div className="mx-auto max-w-7xl px-4 pt-16 pb-8 text-muted-foreground">
@@ -15,6 +17,7 @@ const Footer = () => {
             whileHover={{ y: -1, scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             className="rounded-lg bg-amber-400 px-6 py-3 text-base font-semibold text-gray-900 hover:bg-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            onClick={() => router.push('/speak-with-specialist')}
           >
             Speak with Specialist
           </motion.button>

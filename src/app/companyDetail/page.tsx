@@ -8,7 +8,6 @@ import { Building, FileText, DollarSign, Users, Phone } from "lucide-react";
 import type { CompanyApiResponse, CompleteCompanyData } from "@/types/company";
 
 // Import all the form components from project-detail-form (reusing the same structure)
-import Header from "@/components/project-detail-form/header";
 import StepIndicator from "@/components/project-detail-form/step-indicator";
 import ProgressBar from "@/components/project-detail-form/progressbar";
 import SuccessAnimation from "@/components/project-detail-form/successanimation";
@@ -453,7 +452,6 @@ export default function CompanyApplicationPage() {
 
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
         <div className="max-w-4xl mx-auto px-4 py-8">
           <SuccessAnimation />
           <div className="text-center mt-8">
@@ -471,7 +469,6 @@ export default function CompanyApplicationPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Step Indicator */}

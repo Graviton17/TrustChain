@@ -49,7 +49,7 @@ const Header = () => {
 
           <nav role="navigation" aria-label="Primary" className="hidden md:flex items-center gap-6 text-sm font-medium">
             <a
-              href="#home"
+              href="/"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
               Home
@@ -121,7 +121,7 @@ const Header = () => {
             </a>
 
             <a
-              href="#insurance"
+              href="/insurance"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
               Insurance
