@@ -1,62 +1,72 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { Factory, Users, ArrowLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from "react";
+import { Factory, Users, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ApplicationForm() {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const role = searchParams.get('role');
+  const [role, setRole] = useState<string | null>(null);
+
+  // Read role from URL on the client to avoid needing a suspense boundary for useSearchParams
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    setRole(sp.get("role"));
+  }, []);
+
+  const roleValue = role ?? "consumer";
   const [formData, setFormData] = useState({
     // Common fields
-    companyName: '',
-    email: '',
-    phone: '',
-    address: '',
-    
+    companyName: "",
+    email: "",
+    phone: "",
+    address: "",
+
     // Producer specific fields
-    productionCapacity: '',
-    technologyType: '',
-    certifications: '',
-    
+    productionCapacity: "",
+    technologyType: "",
+    certifications: "",
+
     // Consumer specific fields
-    requiredVolume: '',
-    usageType: '',
-    timeframe: '',
+    requiredVolume: "",
+    usageType: "",
+    timeframe: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      const response = await fetch('/api/submit-application', {
-        method: 'POST',
+      const response = await fetch("/api/submit-application", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           role,
-          ...formData
+          ...formData,
         }),
       });
 
       if (response.ok) {
-        router.push('/application-success');
+        router.push("/application-success");
       } else {
-        throw new Error('Failed to submit application');
+        throw new Error("Failed to submit application");
       }
     } catch (error) {
-      console.error('Error submitting application:', error);
+      console.error("Error submitting application:", error);
     }
   };
 
@@ -74,7 +84,9 @@ export default function ApplicationForm() {
             </button>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
-                {role === 'producer' ? 'Producer Application' : 'Consumer Application'}
+                {roleValue === "producer"
+                  ? "Producer Application"
+                  : "Consumer Application"}
               </h1>
               <p className="text-sm text-gray-600">
                 Fill out the form below to start your journey with TrustChain
@@ -88,13 +100,15 @@ export default function ApplicationForm() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white shadow-lg rounded-lg p-6">
           <div className="flex items-center mb-6">
-            {role === 'producer' ? (
+            {roleValue === "producer" ? (
               <Factory className="w-8 h-8 text-green-600 mr-3" />
             ) : (
               <Users className="w-8 h-8 text-blue-600 mr-3" />
             )}
             <h2 className="text-xl font-semibold text-gray-900">
-              {role === 'producer' ? 'Producer Information' : 'Consumer Information'}
+              {roleValue === "producer"
+                ? "Producer Information"
+                : "Consumer Information"}
             </h2>
           </div>
 
@@ -159,7 +173,7 @@ export default function ApplicationForm() {
             </div>
 
             {/* Role-specific Fields */}
-            {role === 'producer' ? (
+            {roleValue === "producer" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -275,9 +289,9 @@ export default function ApplicationForm() {
               <button
                 type="submit"
                 className={`px-6 py-2 text-white rounded-md ${
-                  role === 'producer'
-                    ? 'bg-green-600 hover:bg-green-700'
-                    : 'bg-blue-600 hover:bg-blue-700'
+                  roleValue === "producer"
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-blue-600 hover:bg-blue-700"
                 }`}
               >
                 Submit Application
