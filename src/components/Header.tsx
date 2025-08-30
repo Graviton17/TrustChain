@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import SignIn from "@/app/(auth)/sign-in/page"
 import SignUp from "@/app/(auth)/sign-up/page"
+import Image from 'next/image'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +27,16 @@ const Header = () => {
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-3">
-            <FaLink className="text-emerald-400 text-2xl" aria-hidden />
+            <div className="relative w-8 h-8">
+              <Image
+                src="/icon.png"
+                alt="TrustChain Logo"
+                fill
+                sizes="32px"
+                priority
+                className="object-contain"
+              />
+            </div>
             <div className="flex flex-col">
               <h1 className="text-xl font-semibold leading-none tracking-tight text-foreground">TrustChain</h1>
               <p className="hidden lg:block text-xs text-muted-foreground">
@@ -97,7 +108,7 @@ const Header = () => {
             </a>
 
             <a
-              href="#qna"
+              href="/faq"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
               Q&A
