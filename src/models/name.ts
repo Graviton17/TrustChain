@@ -13,3 +13,5 @@ export const ProjectProductionCollection = "projectProduction";
 export const ProjectVerificationCollection = "projectVerification";
 export const ProjectFinancialsCollection = "projectFinancial";
 export const ProjectComplianceCollection = "projectCompliance";
+
+export const InsurancePoliciesCollection = "insurancePolicies";

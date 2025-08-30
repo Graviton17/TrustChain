@@ -11,6 +11,7 @@ import createProjectComplianceCollection from "./projectDetails/projectComplianc
 import createProjectFinancialsCollection from "./projectDetails/projectFinancial.collections";
 import createProjectProductionCollection from "./projectDetails/projectProduction.collections";
 import createProjectVerificationCollection from "./projectDetails/projectVerification.collections";
+import createInsurancePoliciesCollection from "./insurance.collections";
 
 export default async function getOrCreateDatabase() {
   try {
@@ -35,6 +36,7 @@ export default async function getOrCreateDatabase() {
         createProjectFinancialsCollection(),
         createProjectProductionCollection(),
         createProjectVerificationCollection(),
+        createInsurancePoliciesCollection(),
       ]);
       console.log("Collections created successfully.");
     } catch (createError) {
