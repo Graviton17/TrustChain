@@ -6,6 +6,7 @@ import Link from "next/link"
 import SignIn from "@/app/(auth)/sign-in/page"
 import SignUp from "@/app/(auth)/sign-up/page"
 import Image from 'next/image'
+import { useChatbot } from "@/app/contexts/ChatbotContext"
 
 import {
   DropdownMenu,
@@ -17,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 const Header = () => {
+   const { toggleChat } = useChatbot();
   return (
     <motion.header
       initial={{ y: -8, opacity: 0 }}
@@ -96,8 +98,8 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <a
-              href="#chatbot"
+            <button
+              onClick={toggleChat} // Add onClick handler
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
               Chatbot
@@ -105,7 +107,7 @@ const Header = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 bg-foreground/40 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
-            </a>
+            </button>
 
             <a
               href="/faq"

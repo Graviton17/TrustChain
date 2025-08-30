@@ -1,48 +1,73 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { databases } from '@/models/server/config';
-import { InsurancePolicy, CreateInsurancePolicyRequest } from '@/types/insurance';
-import { ID, Query } from 'appwrite';
-import env from '@/app/env';
-
-const DATABASE_ID = 'trustchain';
-const INSURANCE_COLLECTION_ID = 'insurance';
+import { NextRequest, NextResponse } from "next/server";
+import { databases } from "@/models/server/config";
+import { CreateInsurancePolicyRequest } from "@/types/insurance";
+import { ID } from "appwrite";
+import { db, InsurancePoliciesCollection } from "@/models/name";
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('Received POST request to create insurance policy');
-    
+    console.log("Received POST request to create insurance policy");
+
     const body: CreateInsurancePolicyRequest = await req.json();
-    console.log('Request body:', body);
+    console.log("Request body:", body);
 
     // Validate required fields
     if (!body.policy_name || !body.policy_type) {
-      console.log('Validation failed: Missing required fields');
+      console.log("Validation failed: Missing required fields");
       return NextResponse.json(
-        { success: false, error: 'Policy name and type are required' },
+        { success: false, error: "Policy name and type are required" },
         { status: 400 }
       );
     }
 
+    // Validate terms_url if provided
+    if (body.terms_url && body.terms_url.trim() !== "") {
+      let urlToValidate = body.terms_url.trim();
+
+      // Add https:// if no protocol is provided
+      if (!/^https?:\/\//i.test(urlToValidate)) {
+        urlToValidate = `https://${urlToValidate}`;
+      }
+
+      const urlPattern = /^https?:\/\/.+/i;
+      if (!urlPattern.test(urlToValidate)) {
+        console.log("Validation failed: Invalid terms_url format");
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Invalid terms_url format. Must be a valid URL.",
+          },
+          { status: 400 }
+        );
+      }
+
+      // Update the body with the corrected URL
+      body.terms_url = urlToValidate;
+    }
+
     // Create document data
     const documentData = {
-      providerId: body.providerId || 'default-provider',
+      providerId: body.providerId || "default-provider",
       policy_name: body.policy_name,
       policy_type: body.policy_type,
-      target_region: body.target_region || '',
-      description: body.description || '',
-      total_outlay_covered: body.total_outlay_covered || '',
-      eligibility_summary: body.eligibility_summary || '',
-      terms_url: body.terms_url || '',
+      target_region: body.target_region || "",
+      description: body.description || "",
+      total_outlay_covered: body.total_outlay_covered || "",
+      eligibility_summary: body.eligibility_summary || "",
+      terms_url:
+        body.terms_url && body.terms_url.trim() !== ""
+          ? body.terms_url
+          : undefined,
     };
 
-    console.log('Creating document with data:', documentData);
-    console.log('Using database:', DATABASE_ID);
-    console.log('Using collection:', INSURANCE_COLLECTION_ID);
+    console.log("Creating document with data:", documentData);
+    console.log("Using database:", db);
+    console.log("Using collection:", InsurancePoliciesCollection);
 
     // Create the insurance policy
     const policy = await databases.createDocument(
-      DATABASE_ID,
-      INSURANCE_COLLECTION_ID,
+      db,
+      InsurancePoliciesCollection,
       ID.unique(),
       documentData
     );
@@ -51,24 +76,28 @@ export async function POST(req: NextRequest) {
       success: true,
       data: policy,
     });
-  } catch (error: any) {
-    console.error('Error creating insurance policy:', error);
-    
+  } catch (error) {
+    console.error("Error creating insurance policy:", error);
+
     // Get detailed error information
-    const errorMessage = error.message || 'Unknown error';
-    const errorCode = error.code || 'NO_CODE';
-    
-    console.error('Detailed error:', {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    const errorCode =
+      error instanceof Error && "code" in error
+        ? String((error as { code?: unknown }).code)
+        : "NO_CODE";
+
+    console.error("Detailed error:", {
       message: errorMessage,
       code: errorCode,
-      stack: error.stack
+      stack: error instanceof Error ? error.stack : undefined,
     });
 
     return NextResponse.json(
-      { 
-        success: false, 
+      {
+        success: false,
         error: `Failed to create insurance policy: ${errorMessage}`,
-        code: errorCode
+        code: errorCode,
       },
       { status: 500 }
     );
@@ -78,8 +107,8 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const policies = await databases.listDocuments(
-      process.env.NEXT_PUBLIC_DATABASE_ID!,
-      process.env.NEXT_PUBLIC_INSURANCE_COLLECTION_ID!
+      db,
+      InsurancePoliciesCollection
     );
 
     return NextResponse.json({
@@ -88,9 +117,9 @@ export async function GET() {
       total: policies.total,
     });
   } catch (error) {
-    console.error('Error fetching insurance policies:', error);
+    console.error("Error fetching insurance policies:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch insurance policies' },
+      { success: false, error: "Failed to fetch insurance policies" },
       { status: 500 }
     );
   }
@@ -99,29 +128,25 @@ export async function GET() {
 export async function DELETE(req: NextRequest) {
   try {
     const url = new URL(req.url);
-    const policyId = url.pathname.split('/').pop();
+    const policyId = url.pathname.split("/").pop();
 
     if (!policyId) {
       return NextResponse.json(
-        { success: false, error: 'Policy ID is required' },
+        { success: false, error: "Policy ID is required" },
         { status: 400 }
       );
     }
 
-    await databases.deleteDocument(
-      process.env.NEXT_PUBLIC_DATABASE_ID!,
-      process.env.NEXT_PUBLIC_INSURANCE_COLLECTION_ID!,
-      policyId
-    );
+    await databases.deleteDocument(db, InsurancePoliciesCollection, policyId);
 
     return NextResponse.json({
       success: true,
-      message: 'Policy deleted successfully',
+      message: "Policy deleted successfully",
     });
   } catch (error) {
-    console.error('Error deleting insurance policy:', error);
+    console.error("Error deleting insurance policy:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to delete insurance policy' },
+      { success: false, error: "Failed to delete insurance policy" },
       { status: 500 }
     );
   }
