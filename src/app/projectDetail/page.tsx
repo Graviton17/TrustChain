@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import {
   Building,
@@ -131,6 +132,7 @@ export default function ProjectDetailPage() {
   const [errors, setErrors] = useState(initialErrors);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   // Update form data
   const updateData = (field: string, value: string | boolean) => {
@@ -300,6 +302,40 @@ export default function ProjectDetailPage() {
       }
 
       console.log("Project submitted successfully:", result);
+
+      // Try to fetch company name using companyId so we can redirect to certificate
+      const companyIdToFetch = formData.companyId || (result && result.data && result.data.project && result.data.project.companyId) || "";
+      let companyNameForCert = "[Company Name]";
+
+      if (companyIdToFetch) {
+        try {
+          const companyResp = await fetch(
+            `/api/company-complete?companyId=${encodeURIComponent(
+              companyIdToFetch
+            )}`
+          );
+          const companyJson = await companyResp.json();
+          if (
+            companyResp.ok &&
+            companyJson?.success &&
+            companyJson?.data?.profile?.company_name
+          ) {
+            companyNameForCert = companyJson.data.profile.company_name;
+          }
+        } catch (err) {
+          console.error("Failed to fetch company data for certificate redirect:", err);
+        }
+      }
+
+      // Build certificate URL and redirect the user
+      const certUrl = `/certificate?companyName=${encodeURIComponent(
+        companyNameForCert
+      )}&companyId=${encodeURIComponent(companyIdToFetch)}&projectId=${encodeURIComponent(
+        (result && result.data && result.data.project && result.data.project.$id) || ""
+      )}`;
+
+      router.push(certUrl);
+
       setIsSubmitted(true);
     } catch (error) {
       console.error("Submission error:", error);

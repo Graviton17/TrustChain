@@ -1,0 +1,212 @@
+:root {
+  --accent: #06b58b;
+  --muted: #6b7280;
+  --bg: #ffffff;
+  --paper: #f8faf8;
+}
+
+.root {
+  padding: 24px;
+  font-family: Inter, Arial, sans-serif;
+  color: #0b1226;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.back {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.certificateContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.trustLogo {
+  border-radius: 6px;
+}
+
+.trustName {
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.trustTag {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.certId {
+  text-align: right;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.certBox {
+  border: 6px solid #f3f8f6;
+  padding: 32px;
+  margin-top: 18px;
+  position: relative;
+  background: var(--bg);
+}
+
+.stamp {
+  position: absolute;
+  right: 18px;
+  top: -16px;
+  transform: rotate(-8deg);
+  opacity: 0.95;
+}
+
+.certInner {
+  text-align: center;
+  padding: 28px 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: -1px;
+  color: #0b1226;
+}
+
+.lead {
+  margin-top: 12px;
+  color: #4b5563;
+}
+
+.companyWrap {
+  margin-top: 18px;
+}
+
+.companyName {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0b1226;
+  letter-spacing: -0.6px;
+}
+
+.descr {
+  margin-top: 18px;
+  color: #374151;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bottomRow {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+}
+
+.logoBlock {
+  text-align: center;
+}
+
+.companyLogo {
+  width: 140px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}
+
+.logoLabel {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.authBlock {
+  text-align: left;
+}
+
+.authTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0b1226;
+}
+
+.authOrg {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.signature {
+  margin-top: 24px;
+}
+
+.signLine {
+  border-top: 2px solid #0b1226;
+  width: 220px;
+}
+
+.signName {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #374151;
+}
+
+.issued {
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.footer {
+  margin-top: 14px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+/* print rules */
+@media print {
+  .no-print {
+    display: none;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page {
+    size: A4;
+    margin: 18mm;
+  }
+}
