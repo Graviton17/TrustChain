@@ -184,6 +184,44 @@ export async function POST(request: NextRequest) {
 
     const result: CompleteCompanyData = {};
 
+    // Helper function to validate and format URL
+    const formatWebsiteUrl = (
+      url: string | null | undefined
+    ): string | null => {
+      if (!url || url.trim() === "" || url === "null" || url === "undefined") {
+        return null;
+      }
+
+      const trimmedUrl = url.trim();
+
+      // If it's just a single word or doesn't look like a URL, return null
+      if (!trimmedUrl.includes(".") && !trimmedUrl.includes(":")) {
+        return null;
+      }
+
+      // Check if it's already a valid URL format
+      if (
+        trimmedUrl.startsWith("http://") ||
+        trimmedUrl.startsWith("https://")
+      ) {
+        try {
+          const testUrl = new URL(trimmedUrl);
+          return testUrl.href;
+        } catch {
+          return null;
+        }
+      }
+
+      // Try adding https:// prefix
+      try {
+        const urlWithHttps = `https://${trimmedUrl}`;
+        const testUrl = new URL(urlWithHttps);
+        return testUrl.href;
+      } catch {
+        return null;
+      }
+    };
+
     // Create company profile first
     try {
       const newProfile = await databases.createDocument(
@@ -199,7 +237,7 @@ export async function POST(request: NextRequest) {
           year_incorporation: profile.year_incorporation || null,
           country: profile.country || null,
           state: profile.state || null,
-          website: profile.website || null,
+          website: formatWebsiteUrl(profile.website),
         }
       );
 
@@ -310,9 +348,53 @@ export async function PUT(request: NextRequest) {
     const result: CompleteCompanyData = {};
     const companyId = profile.$id;
 
+    // Helper function to validate and format URL
+    const formatWebsiteUrl = (
+      url: string | null | undefined
+    ): string | null => {
+      if (!url || url.trim() === "" || url === "null" || url === "undefined") {
+        return null;
+      }
+
+      const trimmedUrl = url.trim();
+
+      // If it's just a single word or doesn't look like a URL, return null
+      if (!trimmedUrl.includes(".") && !trimmedUrl.includes(":")) {
+        return null;
+      }
+
+      // Check if it's already a valid URL format
+      if (
+        trimmedUrl.startsWith("http://") ||
+        trimmedUrl.startsWith("https://")
+      ) {
+        try {
+          const testUrl = new URL(trimmedUrl);
+          return testUrl.href;
+        } catch {
+          return null;
+        }
+      }
+
+      // Try adding https:// prefix
+      try {
+        const urlWithHttps = `https://${trimmedUrl}`;
+        const testUrl = new URL(urlWithHttps);
+        return testUrl.href;
+      } catch {
+        return null;
+      }
+    };
+
     // Update profile
     try {
       const { $id, ...profileUpdateData } = profile;
+
+      // Apply URL formatting to website field if it exists
+      if (profileUpdateData.website !== undefined) {
+        profileUpdateData.website = formatWebsiteUrl(profileUpdateData.website);
+      }
+
       const cleanProfileData = Object.fromEntries(
         Object.entries(profileUpdateData).filter(
           ([, value]) => value !== undefined
