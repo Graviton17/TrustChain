@@ -2,6 +2,10 @@ import { databases } from "../config";
 import { db } from "../../name";
 import createUsersCollection from "./user.collections";
 import createSubsidiesCollection from "./subsidies.collection";
+import createCompanyOperationsCollection from "./compnayOperations.collections";
+import createCompanyContactsCollection from "./companyContacts.collections";
+import createCompanyProfilesCollection from "./companyProfile.collections";
+import createCompanyFinancialsCollection from "./companyFinacial.collections";
 
 export default async function getOrCreateDatabase() {
   try {
@@ -17,6 +21,10 @@ export default async function getOrCreateDatabase() {
       await Promise.all([
         createUsersCollection(),
         createSubsidiesCollection(),
+        createCompanyOperationsCollection(),
+        createCompanyContactsCollection(),
+        createCompanyProfilesCollection(),
+        createCompanyFinancialsCollection(),
       ]);
       console.log("Collections created successfully.");
     } catch (createError) {
