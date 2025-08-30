@@ -1,92 +1,116 @@
 "use client";
 
-import { Phone } from "lucide-react";
-
-type FormData = {
-  [key: string]: string | number;
-};
-
-type Errors = {
-  [key: string]: string;
-};
+import React from "react";
+import { Input } from "@/components/ui/input";
 
 interface CompanyContactsStepProps {
-  formData: FormData;
-  onInputChange: (name: string, value: string | number) => void;
-  errors: Errors;
+  formData: {
+    contact_person_name: string;
+    contact_person_designation: string;
+    contact_email: string;
+    contact_phone: string;
+  };
+  handleInputChange: (field: string, value: string) => void;
+  errors: Record<string, string>;
 }
 
 const CompanyContactsStep: React.FC<CompanyContactsStepProps> = ({
   formData,
-  onInputChange,
+  handleInputChange,
   errors,
 }) => {
-  interface InputFieldProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
-    label: string;
-    name: string;
-    required?: boolean;
-  }
-
-  const InputField: React.FC<InputFieldProps> = ({
-    label,
-    name,
-    type = "text",
-    required = false,
-    ...props
-  }) => (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        type={type}
-        value={formData[name] || ""}
-        onChange={(e) => onInputChange(name, e.target.value)}
-        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 ${
-          errors[name] ? "border-red-500 bg-red-50" : "border-gray-300"
-        }`}
-        {...props}
-      />
-      {errors[name] && (
-        <p className="text-red-500 text-sm animate-pulse">{errors[name]}</p>
-      )}
-    </div>
-  );
-
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="text-center mb-6">
-        <Phone className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-800">Contact Information</h2>
-        <p className="text-gray-600">
-          Primary contact details for your company
-        </p>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Contact Person Name
+          </label>
+          <Input
+            type="text"
+            value={formData.contact_person_name}
+            onChange={(e) =>
+              handleInputChange("contact_person_name", e.target.value)
+            }
+            placeholder="Enter contact person's full name"
+            className={errors.contact_person_name ? "border-red-500" : ""}
+          />
+          {errors.contact_person_name && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.contact_person_name}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Designation
+          </label>
+          <Input
+            type="text"
+            value={formData.contact_person_designation}
+            onChange={(e) =>
+              handleInputChange("contact_person_designation", e.target.value)
+            }
+            placeholder="Enter designation (e.g., CEO, Manager)"
+            className={
+              errors.contact_person_designation ? "border-red-500" : ""
+            }
+          />
+          {errors.contact_person_designation && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.contact_person_designation}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Contact Email
+          </label>
+          <Input
+            type="email"
+            value={formData.contact_email}
+            onChange={(e) => handleInputChange("contact_email", e.target.value)}
+            placeholder="Enter email address"
+            className={errors.contact_email ? "border-red-500" : ""}
+          />
+          {errors.contact_email && (
+            <p className="text-red-500 text-sm mt-1">{errors.contact_email}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Contact Phone
+          </label>
+          <Input
+            type="tel"
+            value={formData.contact_phone}
+            onChange={(e) => handleInputChange("contact_phone", e.target.value)}
+            placeholder="Enter phone number with country code"
+            className={errors.contact_phone ? "border-red-500" : ""}
+          />
+          {errors.contact_phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.contact_phone}</p>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <InputField
-          label="Contact Person Name"
-          name="contact_person_name"
-          placeholder="Enter primary contact name"
-        />
-        <InputField
-          label="Contact Person Designation"
-          name="contact_person_designation"
-          placeholder="e.g., CEO, Manager, Director"
-        />
-        <InputField
-          label="Contact Email"
-          name="contact_email"
-          type="email"
-          placeholder="contact@company.com"
-        />
-        <InputField
-          label="Contact Phone"
-          name="contact_phone"
-          type="tel"
-          placeholder="+1 (555) 123-4567"
-        />
+      <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+        <h4 className="text-sm font-medium text-yellow-900 mb-2">
+          Contact Information Guidelines
+        </h4>
+        <ul className="text-sm text-yellow-700 space-y-1">
+          <li>
+            • Contact person should be authorized to represent the company
+          </li>
+          <li>• Email will be used for all official communications</li>
+          <li>
+            • Phone number should include country code (e.g., +1-555-123-4567)
+          </li>
+          <li>• Ensure contact details are accurate and monitored regularly</li>
+        </ul>
       </div>
     </div>
   );

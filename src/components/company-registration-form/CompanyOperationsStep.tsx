@@ -1,99 +1,75 @@
 "use client";
 
 import React from "react";
-import { Users } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 interface CompanyOperationsStepProps {
-  formData: Record<string, string | number | undefined>; // allow undefined
-  onInputChange: (name: string, value: string | number) => void;
+  formData: {
+    employees: string;
+    headquarters_address: string;
+  };
+  handleInputChange: (field: string, value: string) => void;
   errors: Record<string, string>;
 }
 
 const CompanyOperationsStep: React.FC<CompanyOperationsStepProps> = ({
   formData,
-  onInputChange,
+  handleInputChange,
   errors,
 }) => {
-  // InputField Component
-  const InputField: React.FC<{
-    label: string;
-    name: string;
-    type?: string;
-    required?: boolean;
-    placeholder?: string;
-    min?: number;
-  }> = ({ label, name, type = "text", required = false, ...props }) => (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        type={type}
-        value={formData[name] ?? ""} // handles undefined
-        onChange={(e) =>
-          onInputChange(
-            name,
-            type === "number" ? Number(e.target.value) : e.target.value
-          )
-        }
-        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 ${
-          errors[name] ? "border-red-500 bg-red-50" : "border-gray-300"
-        }`}
-        {...props}
-      />
-      {errors[name] && (
-        <p className="text-red-500 text-sm animate-pulse">{errors[name]}</p>
-      )}
-    </div>
-  );
-
-  // TextArea Component
-  const TextAreaField: React.FC<{
-    label: string;
-    name: string;
-    required?: boolean;
-    placeholder?: string;
-  }> = ({ label, name, required = false, ...props }) => (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <textarea
-        value={formData[name] ?? ""} // handles undefined
-        onChange={(e) => onInputChange(name, e.target.value)}
-        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 ${
-          errors[name] ? "border-red-500 bg-red-50" : "border-gray-300"
-        }`}
-        rows={3}
-        {...props}
-      />
-      {errors[name] && (
-        <p className="text-red-500 text-sm animate-pulse">{errors[name]}</p>
-      )}
-    </div>
-  );
-
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="text-center mb-6">
-        <Users className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-800">Operations</h2>
-        <p className="text-gray-600">Operational details of your company</p>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Number of Employees
+          </label>
+          <Input
+            type="number"
+            min="1"
+            value={formData.employees}
+            onChange={(e) => handleInputChange("employees", e.target.value)}
+            placeholder="Enter number of employees"
+            className={errors.employees ? "border-red-500" : ""}
+          />
+          {errors.employees && (
+            <p className="text-red-500 text-sm mt-1">{errors.employees}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Headquarters Address
+          </label>
+          <textarea
+            value={formData.headquarters_address}
+            onChange={(e) =>
+              handleInputChange("headquarters_address", e.target.value)
+            }
+            placeholder="Enter complete headquarters address including street, city, state, postal code"
+            rows={4}
+            className={`w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical ${
+              errors.headquarters_address ? "border-red-500" : ""
+            }`}
+          />
+          {errors.headquarters_address && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.headquarters_address}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        <InputField
-          label="Number of Employees"
-          name="employees"
-          type="number"
-          placeholder="Enter total number of employees"
-          min={0}
-        />
-        <TextAreaField
-          label="Headquarters Address"
-          name="headquarters_address"
-          placeholder="Enter complete headquarters address"
-        />
+      <div className="bg-green-50 border border-green-200 rounded-md p-4">
+        <h4 className="text-sm font-medium text-green-900 mb-2">
+          Operations Information
+        </h4>
+        <ul className="text-sm text-green-700 space-y-1">
+          <li>• Employee count helps assess company capacity</li>
+          <li>• Headquarters address is used for official communications</li>
+          <li>• Ensure address is complete and accurate</li>
+          <li>• This information may be verified during application review</li>
+        </ul>
       </div>
     </div>
   );

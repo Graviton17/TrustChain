@@ -1,173 +1,122 @@
+"use client";
+
 import React from "react";
-import { DollarSign } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { CreditRating } from "@/types/company";
 
-type CompanyFinancialsStepProps = {
+interface CompanyFinancialStepProps {
   formData: {
-    annual_revenue?: number | string;
-    net_worth?: number | string;
-    credit_rating?: string;
-    past_project_success_rate?: number | string;
+    annual_revenue: string;
+    net_worth: string;
+    credit_rating: string;
+    past_project_success_rate: string;
   };
-  onInputChange: (name: string, value: string) => void;
-  errors?: Record<string, string>;
-};
-
-type StepProps = {
-  formData: any; // or your FormData type
-  onInputChange: (field: string, value: string | number) => void;
+  handleInputChange: (field: string, value: string) => void;
   errors: Record<string, string>;
-};
+}
 
-const CompanyFinancialsStep: React.FC<CompanyFinancialsStepProps> = ({
+const CompanyFinancialStep: React.FC<CompanyFinancialStepProps> = ({
   formData,
-  onInputChange,
-  errors = {},
+  handleInputChange,
+  errors,
 }) => {
-  const creditRatings = [
-    "AAA",
-    "AA+",
-    "AA",
-    "AA-",
-    "A+",
-    "A",
-    "A-",
-    "BBB+",
-    "BBB",
-    "BBB-",
-    "BB+",
-    "BB",
-    "BB-",
-    "B+",
-    "B",
-    "B-",
-    "CCC",
-    "CC",
-    "C",
-    "D",
-  ];
-
-  type InputFieldProps = {
-    label: string;
-    name: keyof CompanyFinancialsStepProps["formData"];
-    type?: string;
-    required?: boolean;
-    placeholder?: string;
-    min?: number | string;
-    max?: number | string;
-    step?: number | string;
-  };
-
-  const InputField: React.FC<InputFieldProps> = ({
-    label,
-    name,
-    type = "text",
-    required = false,
-    ...props
-  }) => (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        type={type}
-        value={formData[name] ?? ""}
-        onChange={(e) => onInputChange(name, e.target.value)}
-        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 ${
-          errors[name as string] ? "border-red-500 bg-red-50" : "border-gray-300"
-        }`}
-        {...props}
-      />
-      {errors[name as string] && (
-        <p className="text-red-500 text-sm animate-pulse">
-          {errors[name as string]}
-        </p>
-      )}
-    </div>
-  );
-
-  type SelectFieldProps = {
-    label: string;
-    name: keyof CompanyFinancialsStepProps["formData"];
-    options: string[];
-    required?: boolean;
-  };
-
-  const SelectField: React.FC<SelectFieldProps> = ({
-    label,
-    name,
-    options,
-    required = false,
-  }) => (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <select
-        value={formData[name] ?? ""}
-        onChange={(e) => onInputChange(name, e.target.value)}
-        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 ${
-          errors[name as string] ? "border-red-500 bg-red-50" : "border-gray-300"
-        }`}
-      >
-        <option value="">Select {label}</option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      {errors[name as string] && (
-        <p className="text-red-500 text-sm animate-pulse">
-          {errors[name as string]}
-        </p>
-      )}
-    </div>
-  );
-
   return (
     <div className="space-y-6">
-      <div className="text-center mb-6">
-        <DollarSign className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-gray-800">Financial Details</h2>
-        <p className="text-gray-600">
-          Financial information about your company
-        </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Annual Revenue (USD)
+          </label>
+          <Input
+            type="number"
+            value={formData.annual_revenue}
+            onChange={(e) =>
+              handleInputChange("annual_revenue", e.target.value)
+            }
+            placeholder="Enter annual revenue"
+            className={errors.annual_revenue ? "border-red-500" : ""}
+          />
+          {errors.annual_revenue && (
+            <p className="text-red-500 text-sm mt-1">{errors.annual_revenue}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Net Worth (USD)
+          </label>
+          <Input
+            type="number"
+            value={formData.net_worth}
+            onChange={(e) => handleInputChange("net_worth", e.target.value)}
+            placeholder="Enter net worth"
+            className={errors.net_worth ? "border-red-500" : ""}
+          />
+          {errors.net_worth && (
+            <p className="text-red-500 text-sm mt-1">{errors.net_worth}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Credit Rating
+          </label>
+          <select
+            value={formData.credit_rating}
+            onChange={(e) => handleInputChange("credit_rating", e.target.value)}
+            className={`w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+              errors.credit_rating ? "border-red-500" : ""
+            }`}
+            title="Select credit rating"
+          >
+            <option value="">Select credit rating</option>
+            {Object.values(CreditRating).map((rating) => (
+              <option key={rating} value={rating}>
+                {rating}
+              </option>
+            ))}
+          </select>
+          {errors.credit_rating && (
+            <p className="text-red-500 text-sm mt-1">{errors.credit_rating}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Past Project Success Rate (%)
+          </label>
+          <Input
+            type="number"
+            min="0"
+            max="100"
+            value={formData.past_project_success_rate}
+            onChange={(e) =>
+              handleInputChange("past_project_success_rate", e.target.value)
+            }
+            placeholder="Enter success rate (0-100)"
+            className={errors.past_project_success_rate ? "border-red-500" : ""}
+          />
+          {errors.past_project_success_rate && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.past_project_success_rate}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <InputField
-          label="Annual Revenue"
-          name="annual_revenue"
-          type="number"
-          placeholder="Enter annual revenue"
-          min="0"
-          step="0.01"
-        />
-        <InputField
-          label="Net Worth"
-          name="net_worth"
-          type="number"
-          placeholder="Enter company net worth"
-          min="0"
-          step="0.01"
-        />
-        <SelectField
-          label="Credit Rating"
-          name="credit_rating"
-          options={creditRatings}
-        />
-        <InputField
-          label="Past Project Success Rate (%)"
-          name="past_project_success_rate"
-          type="number"
-          placeholder="Enter success rate (0-100)"
-          min="0"
-          max="100"
-          step="0.1"
-        />
+      <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
+        <h4 className="text-sm font-medium text-blue-900 mb-2">
+          Financial Information Guidelines
+        </h4>
+        <ul className="text-sm text-blue-700 space-y-1">
+          <li>• Annual revenue should be in USD</li>
+          <li>• Net worth represents total assets minus liabilities</li>
+          <li>• Credit rating helps assess financial stability</li>
+          <li>• Success rate should be based on completed projects</li>
+        </ul>
       </div>
     </div>
   );
 };
 
-export default CompanyFinancialsStep;
+export default CompanyFinancialStep;
