@@ -61,7 +61,29 @@ export default function ApplicationForm() {
       });
 
       if (response.ok) {
-        router.push("/application-success");
+        // read response body to get any saved id or logoUrl (if your API returns them)
+        let respJson = {} as any;
+        try {
+          respJson = await response.json();
+        } catch (e) {
+          // ignore JSON parse errors, we'll use form values
+        }
+
+        const name = formData.companyName;
+        const logo = respJson.logoUrl || respJson.logo || "/icon.png";
+        const id =
+          respJson.id ||
+          respJson.certId ||
+          Math.random().toString(36).slice(2, 10).toUpperCase();
+        const date = new Date().toLocaleDateString();
+
+        const url = `/certificate?companyName=${encodeURIComponent(
+          name
+        )}&logoUrl=${encodeURIComponent(logo)}&id=${encodeURIComponent(
+          id
+        )}&date=${encodeURIComponent(date)}`;
+
+        router.push(url);
       } else {
         throw new Error("Failed to submit application");
       }
