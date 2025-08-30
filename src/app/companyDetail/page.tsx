@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Building, FileText, DollarSign, Users, Phone } from "lucide-react";
 
 // Import company types
@@ -431,8 +432,25 @@ export default function CompanyApplicationPage() {
     }
   };
 
-  // If form is submitted, show success animation
+  // If form is submitted, redirect based on user role
   if (isSubmitted) {
+    const router = useRouter();
+    const searchParams = new URLSearchParams(window.location.search);
+    const role = searchParams.get('role') || 'producer';
+    
+    // Redirect after showing success message for 2 seconds
+    React.useEffect(() => {
+      const timer = setTimeout(() => {
+        if (role === 'producer') {
+          router.push('/projectDetail');
+        } else {
+          router.push('/customer-dashboard');
+        }
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }, [router]);
+
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -440,22 +458,11 @@ export default function CompanyApplicationPage() {
           <SuccessAnimation />
           <div className="text-center mt-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Company Application Submitted Successfully!
+              Company Details Submitted Successfully!
             </h2>
             <p className="text-gray-600 mb-6">
-              Your company application has been submitted and is under review.
+              Redirecting you to project details form...
             </p>
-            <button
-              onClick={() => {
-                setIsSubmitted(false);
-                setCurrentStep(0);
-                setFormData(initialFormData);
-                setErrors(initialErrors);
-              }}
-              className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
-            >
-              Submit Another Application
-            </button>
           </div>
         </div>
       </div>

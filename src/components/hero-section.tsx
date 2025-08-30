@@ -4,7 +4,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FaLink, FaBolt, FaShieldAlt, FaGlobe } from "react-icons/fa";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onStartApplication: () => void;
+}
+
+const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
   return (
     <section className="bg-background text-foreground">
       <div className="mx-auto max-w-7xl px-4 py-20 text-center">
@@ -92,7 +96,10 @@ const HeroSection = () => {
               whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Button className="bg-emerald-500 hover:bg-emerald-600 text-gray-900 text-lg px-6 py-6">
+              <Button 
+                onClick={onStartApplication}
+                className="bg-emerald-500 hover:bg-emerald-600 text-gray-900 text-lg px-6 py-6"
+              >
                 Start Your Application
               </Button>
             </motion.div>
