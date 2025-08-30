@@ -73,100 +73,113 @@ export default function ApplicationForm() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => router.back()}
-              className="p-2 hover:bg-gray-100 rounded-full"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                {roleValue === "producer"
-                  ? "Producer Application"
-                  : "Consumer Application"}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-4 sm:py-6">
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <button
+                onClick={() => router.back()}
+                className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100"
+              >
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline text-sm sm:text-base">Back</span>
+              </button>
+              <div className="h-6 w-px bg-gray-300"></div>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                Application Form
               </h1>
-              <p className="text-sm text-gray-600">
-                Fill out the form below to start your journey with TrustChain
-              </p>
+            </div>
+            <div className="flex items-center space-x-2 bg-green-50 px-3 py-1 rounded-full">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-xs sm:text-sm text-green-700 font-medium">Secure</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Form */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <div className="flex items-center mb-6">
-            {roleValue === "producer" ? (
-              <Factory className="w-8 h-8 text-green-600 mr-3" />
-            ) : (
-              <Users className="w-8 h-8 text-blue-600 mr-3" />
-            )}
-            <h2 className="text-xl font-semibold text-gray-900">
-              {roleValue === "producer"
-                ? "Producer Information"
-                : "Consumer Information"}
-            </h2>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+        <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6 lg:p-8 border border-gray-200">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8">
+            <div className="flex items-center mb-4 sm:mb-0">
+              {roleValue === "producer" ? (
+                <Factory className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mr-3" />
+              ) : (
+                <Users className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-3" />
+              )}
+              <div>
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900">
+                  {roleValue === "producer"
+                    ? "Producer Information"
+                    : "Consumer Information"}
+                </h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  {roleValue === "producer"
+                    ? "Provide details about your green hydrogen production capabilities"
+                    : "Tell us about your green hydrogen requirements"}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
             {/* Common Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Company Name
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Name *
                 </label>
                 <input
                   type="text"
                   name="companyName"
                   value={formData.companyName}
                   onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  placeholder="Enter your company name"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Email *
                 </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  placeholder="your@email.com"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Phone *
                 </label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  placeholder="+1 (555) 123-4567"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Address
+              <div className="lg:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Address *
                 </label>
                 <input
                   type="text"
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  placeholder="Enter your company address"
                   required
                 />
               </div>
@@ -174,30 +187,35 @@ export default function ApplicationForm() {
 
             {/* Role-specific Fields */}
             {roleValue === "producer" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Production Capacity (MT/year)
-                  </label>
-                  <input
-                    type="text"
-                    name="productionCapacity"
-                    value={formData.productionCapacity}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    required
-                  />
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-4 border-b border-gray-200 pb-2">
+                  Production Details
+                </h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Production Capacity (MT/year) *
+                    </label>
+                    <input
+                      type="text"
+                      name="productionCapacity"
+                      value={formData.productionCapacity}
+                      onChange={handleInputChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      placeholder="e.g., 1000"
+                      required
+                    />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Technology Type
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Technology Type *
                   </label>
                   <select
                     name="technologyType"
                     value={formData.technologyType}
                     onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
                     required
                   >
                     <option value="">Select Technology</option>
@@ -208,8 +226,8 @@ export default function ApplicationForm() {
                   </select>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="lg:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Certifications
                   </label>
                   <input
@@ -217,36 +235,42 @@ export default function ApplicationForm() {
                     name="certifications"
                     value={formData.certifications}
                     onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    placeholder="List your relevant certifications"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    placeholder="List your relevant certifications (optional)"
                   />
                 </div>
               </div>
+              </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Required Volume (MT/year)
-                  </label>
-                  <input
-                    type="text"
-                    name="requiredVolume"
-                    value={formData.requiredVolume}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded-md"
-                    required
-                  />
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-4 border-b border-gray-200 pb-2">
+                  Consumption Requirements
+                </h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Required Volume (MT/year) *
+                    </label>
+                    <input
+                      type="text"
+                      name="requiredVolume"
+                      value={formData.requiredVolume}
+                      onChange={handleInputChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                      placeholder="e.g., 500"
+                      required
+                    />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Usage Type
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Usage Type *
                   </label>
                   <select
                     name="usageType"
                     value={formData.usageType}
                     onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     required
                   >
                     <option value="">Select Usage Type</option>
@@ -258,14 +282,14 @@ export default function ApplicationForm() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Expected Timeframe
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Expected Timeframe *
                   </label>
                   <select
                     name="timeframe"
                     value={formData.timeframe}
                     onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     required
                   >
                     <option value="">Select Timeframe</option>
@@ -276,22 +300,23 @@ export default function ApplicationForm() {
                   </select>
                 </div>
               </div>
+              </div>
             )}
 
-            <div className="flex justify-end space-x-4">
+            <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-6 border-t border-gray-200">
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                className="w-full sm:w-auto px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base font-medium text-gray-700"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className={`px-6 py-2 text-white rounded-md ${
+                className={`w-full sm:w-auto px-6 py-3 text-white rounded-lg font-medium text-sm sm:text-base transition-colors ${
                   roleValue === "producer"
-                    ? "bg-green-600 hover:bg-green-700"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    ? "bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-green-500"
+                    : "bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
                 }`}
               >
                 Submit Application

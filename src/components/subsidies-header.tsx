@@ -6,25 +6,25 @@ function SubsidiesHeader() {
   const { user } = useUser();
   return (
     <div className="bg-white/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center py-4 sm:py-6 space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-3">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-20"></div>
-                <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 p-3 rounded-2xl">
-                  <DollarSign className="h-6 w-6 text-white" />
+                <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 p-2 sm:p-3 rounded-2xl">
+                  <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                   Subsidies Portal
                 </h1>
-                <p className="text-sm text-gray-600 mt-1">Discover funding opportunities worldwide</p>
+                <p className="text-xs sm:text-sm text-gray-600 mt-1">Discover funding opportunities worldwide</p>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-600 bg-white/50 px-4 py-2 rounded-full border border-gray-200">
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <div className="text-xs sm:text-sm text-gray-600 bg-white/50 px-3 sm:px-4 py-2 rounded-full border border-gray-200">
                 Welcome,{" "}
                 <span className="font-medium">
                   {user?.username || user?.emailAddresses?.[0]?.emailAddress || "User"}

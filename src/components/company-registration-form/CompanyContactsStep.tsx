@@ -20,8 +20,8 @@ const CompanyContactsStep: React.FC<CompanyContactsStepProps> = ({
   errors,
 }) => {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Contact Person Name
@@ -97,7 +97,7 @@ const CompanyContactsStep: React.FC<CompanyContactsStepProps> = ({
         </div>
       </div>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+      <div className="bg-yellow-50 border border-yellow-200 rounded-md p-3 sm:p-4">
         <h4 className="text-sm font-medium text-yellow-900 mb-2">
           Contact Information Guidelines
         </h4>

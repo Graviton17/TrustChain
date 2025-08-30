@@ -189,11 +189,11 @@ function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-white">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-white">
       <Logo />
 
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg p-8">
+        <div className="bg-white rounded-lg p-6 sm:p-8">
           {error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded-md text-sm">
               {error}
@@ -203,11 +203,11 @@ function SignUp() {
           {currentStep === "initial" && (
             <>
               {/* Header */}
-              <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-center mb-6 sm:mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                   Create your account
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   Get started with TrustChain today
                 </p>
               </div>
@@ -217,11 +217,11 @@ function SignUp() {
           {currentStep === "password" && (
             <>
               {/* Header for password step */}
-              <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="text-center mb-6 sm:mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                   Create your password
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   Almost done! Just set up your password
                 </p>
               </div>
@@ -235,7 +235,7 @@ function SignUp() {
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   Select your role
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {getAllRoles().map((role) => (
                     <button
                       key={role.value}
@@ -269,7 +269,7 @@ function SignUp() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-opacity-50 focus:border-[#2f64cd] transition-colors duration-200 text-gray-950"
+                    className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-opacity-50 focus:border-[#2f64cd] transition-colors duration-200 text-gray-950 text-sm sm:text-base"
                     placeholder="Enter your email"
                     required
                     suppressHydrationWarning
@@ -279,7 +279,7 @@ function SignUp() {
                 <button
                   onClick={handleEmailContinue}
                   disabled={isLoading}
-                  className="w-full py-3 px-4 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-[#4573d2] hover:bg-[#2f64cd]"
+                  className="w-full py-3 sm:py-4 px-4 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-[#4573d2] hover:bg-[#2f64cd] text-sm sm:text-base"
                 >
                   {isLoading ? "Checking..." : "Continue with Email"}
                 </button>
@@ -315,7 +315,7 @@ function SignUp() {
                   <span className="text-lg">
                     {getRoleConfig(selectedRole).icon}
                   </span>
-                  <span className="text-sm font-medium text-gray-700">
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">
                     Signing up as: {getRoleConfig(selectedRole).label}
                   </span>
                 </div>
@@ -328,7 +328,7 @@ function SignUp() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-opacity-50 focus:border-[#2f64cd] transition-colors duration-200 text-gray-950"
+                    className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-opacity-50 focus:border-[#2f64cd] transition-colors duration-200 text-gray-950 text-sm sm:text-base"
                     placeholder={`Enter your password`}
                     required
                     minLength={8}
@@ -339,7 +339,7 @@ function SignUp() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3 px-4 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-[#4573d2] hover:bg-[#2f64cd]"
+                  className="w-full py-3 sm:py-4 px-4 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#4573d2] focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-[#4573d2] hover:bg-[#2f64cd] text-sm sm:text-base"
                 >
                   {isLoading ? "Creating account..." : "Create Account"}
                 </button>

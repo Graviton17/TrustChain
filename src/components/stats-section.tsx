@@ -23,8 +23,8 @@ const StatsSection = () => {
 
   return (
     <section ref={ref} className="bg-muted/30">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center text-foreground">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center text-foreground">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -35,8 +35,9 @@ const StatsSection = () => {
               initial="hidden"
               animate={controls}
               transition={{ duration: 0.5, delay: index * 0.12 }}
+              className="p-4 sm:p-6"
             >
-              <p className="mb-1 text-4xl font-extrabold tracking-tight text-emerald-400">
+              <p className="mb-1 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-emerald-400">
                 {isInView ? (
                   <CountUp end={stat.end} decimals={stat.decimals} duration={1.6} suffix={stat.suffix} />
                 ) : (
@@ -46,7 +47,7 @@ const StatsSection = () => {
                   </>
                 )}
               </p>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
             </motion.div>
           ))}
         </div>

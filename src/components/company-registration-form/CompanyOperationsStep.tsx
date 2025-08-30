@@ -18,8 +18,8 @@ const CompanyOperationsStep: React.FC<CompanyOperationsStepProps> = ({
   errors,
 }) => {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 gap-6">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Number of Employees
@@ -48,7 +48,7 @@ const CompanyOperationsStep: React.FC<CompanyOperationsStepProps> = ({
             }
             placeholder="Enter complete headquarters address including street, city, state, postal code"
             rows={4}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical ${
+            className={`w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical ${
               errors.headquarters_address ? "border-red-500" : ""
             }`}
           />
@@ -60,7 +60,7 @@ const CompanyOperationsStep: React.FC<CompanyOperationsStepProps> = ({
         </div>
       </div>
 
-      <div className="bg-green-50 border border-green-200 rounded-md p-4">
+      <div className="bg-green-50 border border-green-200 rounded-md p-3 sm:p-4">
         <h4 className="text-sm font-medium text-green-900 mb-2">
           Operations Information
         </h4>

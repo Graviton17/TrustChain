@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/Header";
 import HeroSection from "@/components/hero-section";
 import StatsSection from "@/components/stats-section";
 import FeaturesSection from "@/components/features-section";
 import TrustSection from "@/components/trust-section";
-import Footer from "@/components/Footer";
 import { RoleSelectionModal } from "@/components/role-selection-modal";
 
 export default function Page() {
@@ -21,7 +19,6 @@ export default function Page() {
       <StatsSection />
       <FeaturesSection />
       <TrustSection />
-      <Footer />
       <RoleSelectionModal 
         isOpen={isRoleModalOpen} 
         onClose={() => setIsRoleModalOpen(false)} 

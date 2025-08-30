@@ -401,11 +401,11 @@ const TrustChainProjectForm = () => {
     return (
       <div className="min-h-screen bg-white">
         <Header />
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-            <div className="p-8">
+            <div className="p-6 sm:p-8">
               <SuccessAnimation />
-              <div className="mt-8 text-center">
+              <div className="mt-6 sm:mt-8 text-center">
                 <button
                   onClick={() => {
                     setSubmitted(false);
@@ -444,7 +444,7 @@ const TrustChainProjectForm = () => {
                       },
                     });
                   }}
-                  className="px-8 py-3 bg-emerald-500 text-white rounded-xl font-medium hover:bg-emerald-600 transition-colors"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-emerald-500 text-white rounded-xl font-medium hover:bg-emerald-600 transition-colors text-sm sm:text-base"
                 >
                   Register Another Project
                 </button>
@@ -461,17 +461,17 @@ const TrustChainProjectForm = () => {
       <Header />
 
       {/* Hero Section */}
-      <div className="bg-white py-12 border-b border-gray-100">
+      <div className="bg-white py-8 sm:py-12 border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
             Green Hydrogen Project Registration
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8">
             Complete your project registration in 5 comprehensive steps
           </p>
 
           {/* Progress Section */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-semibold text-gray-700">
                 Registration Progress
@@ -489,27 +489,27 @@ const TrustChainProjectForm = () => {
       </div>
 
       {/* Main Form */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
           {/* Step Indicator */}
-          <div className="px-8 py-8 bg-gradient-to-r from-emerald-50 to-white border-b border-gray-100">
+          <div className="px-4 sm:px-8 py-6 sm:py-8 bg-gradient-to-r from-emerald-50 to-white border-b border-gray-100">
             <StepIndicator steps={steps} currentStep={currentStep} />
           </div>
 
           {/* Form Content */}
-          <div className="px-8 py-10">
-            <div className="mb-8">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+          <div className="px-4 sm:px-8 py-6 sm:py-10">
+            <div className="mb-6 sm:mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 mb-4">
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto sm:mx-0">
                   {React.createElement(steps[currentStep].icon, {
                     className: "w-6 h-6 text-emerald-600",
                   })}
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">
+                <div className="text-center sm:text-left">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
                     {steps[currentStep].title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600 mt-1">
                     {currentStep === 0 &&
                       "Enter basic project information and company details"}
                     {currentStep === 1 &&
@@ -529,11 +529,11 @@ const TrustChainProjectForm = () => {
           </div>
 
           {/* Navigation */}
-          <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+          <div className="px-4 sm:px-8 py-4 sm:py-6 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
             <button
               onClick={handleBack}
               disabled={currentStep === 0 || loading}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+              className={`w-full sm:w-auto flex items-center justify-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 ${
                 currentStep === 0 || loading
                   ? "text-gray-400 cursor-not-allowed"
                   : "text-gray-700 hover:bg-white hover:text-gray-900 hover:shadow-sm border border-gray-200"
@@ -543,7 +543,7 @@ const TrustChainProjectForm = () => {
               <span>Previous</span>
             </button>
 
-            <div className="flex items-center space-x-6">
+            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 w-full sm:w-auto">
               {/* Trust Indicator */}
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
@@ -593,39 +593,39 @@ const TrustChainProjectForm = () => {
         </div>
 
         {/* Trust Features */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center p-6 bg-white rounded-xl border border-gray-100 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 group">
-            <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-200 transition-colors">
-              <Shield className="w-6 h-6 text-emerald-600" />
+        <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="text-center p-4 sm:p-6 bg-white rounded-xl border border-gray-100 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 group">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-emerald-200 transition-colors">
+              <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">
+            <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
               100% Blockchain Transparency
             </h4>
-            <p className="text-sm text-gray-600">
+            <p className="text-xs sm:text-sm text-gray-600">
               Every transaction recorded immutably on blockchain
             </p>
           </div>
 
-          <div className="text-center p-6 bg-white rounded-xl border border-gray-100 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 group">
-            <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-200 transition-colors">
-              <Zap className="w-6 h-6 text-emerald-600" />
+          <div className="text-center p-4 sm:p-6 bg-white rounded-xl border border-gray-100 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 group">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-emerald-200 transition-colors">
+              <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">
+            <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
               10x Faster Processing
             </h4>
-            <p className="text-sm text-gray-600">
+            <p className="text-xs sm:text-sm text-gray-600">
               Automated smart contracts accelerate disbursements
             </p>
           </div>
 
-          <div className="text-center p-6 bg-white rounded-xl border border-gray-100 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 group">
-            <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-200 transition-colors">
-              <Check className="w-6 h-6 text-emerald-600" />
+          <div className="text-center p-4 sm:p-6 bg-white rounded-xl border border-gray-100 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 group sm:col-span-2 lg:col-span-1">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-emerald-200 transition-colors">
+              <Check className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">
+            <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
               Zero Fraud Guarantee
             </h4>
-            <p className="text-sm text-gray-600">
+            <p className="text-xs sm:text-sm text-gray-600">
               Immutable records prevent fraud and ensure compliance
             </p>
           </div>

@@ -26,8 +26,8 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
   errors,
 }) => {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             User ID
@@ -37,7 +37,7 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
             value={formData.userId}
             onChange={(e) => handleInputChange("userId", e.target.value)}
             placeholder="Enter user ID"
-            className={errors.userId ? "border-red-500" : ""}
+            className={`w-full ${errors.userId ? "border-red-500" : ""}`}
           />
           {errors.userId && (
             <p className="text-red-500 text-sm mt-1">{errors.userId}</p>
@@ -53,7 +53,7 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
             value={formData.company_name}
             onChange={(e) => handleInputChange("company_name", e.target.value)}
             placeholder="Enter company name"
-            className={errors.company_name ? "border-red-500" : ""}
+            className={`w-full ${errors.company_name ? "border-red-500" : ""}`}
           />
           {errors.company_name && (
             <p className="text-red-500 text-sm mt-1">{errors.company_name}</p>
@@ -71,7 +71,7 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
               handleInputChange("registration_number", e.target.value)
             }
             placeholder="Enter registration number"
-            className={errors.registration_number ? "border-red-500" : ""}
+            className={`w-full ${errors.registration_number ? "border-red-500" : ""}`}
           />
           {errors.registration_number && (
             <p className="text-red-500 text-sm mt-1">
@@ -87,7 +87,7 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
           <select
             value={formData.company_type}
             onChange={(e) => handleInputChange("company_type", e.target.value)}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+            className={`w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
               errors.company_type ? "border-red-500" : ""
             }`}
             title="Select company type"
@@ -111,7 +111,7 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
           <select
             value={formData.company_size}
             onChange={(e) => handleInputChange("company_size", e.target.value)}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+            className={`w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
               errors.company_size ? "border-red-500" : ""
             }`}
             title="Select company size"
@@ -180,7 +180,7 @@ const CompanyProfileStep: React.FC<CompanyProfileStepProps> = ({
           )}
         </div>
 
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Website
           </label>

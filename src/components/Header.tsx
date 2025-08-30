@@ -1,11 +1,11 @@
 "use client"
 import { motion } from "framer-motion"
-import { FaGlobe } from "react-icons/fa"
+import { FaGlobe, FaBars, FaTimes } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-// removed direct page imports (not used)
 import Image from 'next/image'
 import { useChatbot } from "@/app/contexts/ChatbotContext"
+import { useState } from "react"
 
 import {
   DropdownMenu,
@@ -18,6 +18,12 @@ import {
 
 const Header = () => {
    const { toggleChat } = useChatbot();
+   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+   const toggleMobileMenu = () => {
+     setIsMobileMenuOpen(!isMobileMenuOpen);
+   };
+
   return (
     <motion.header
       initial={{ y: -8, opacity: 0 }}
@@ -25,9 +31,9 @@ const Header = () => {
       transition={{ duration: 0.35, ease: "easeOut" }}
       className="sticky top-0 z-50 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border"
     >
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className="relative w-8 h-8">
               <Image
                 src="/icon.png"
@@ -39,14 +45,15 @@ const Header = () => {
               />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-xl font-semibold leading-none tracking-tight text-foreground">TrustChain</h1>
+              <h1 className="text-lg sm:text-xl font-semibold leading-none tracking-tight text-foreground">TrustChain</h1>
               <p className="hidden lg:block text-xs text-muted-foreground">
                 Transparent Subsidy Disbursement for Green Hydrogen
               </p>
             </div>
           </div>
 
-          <nav role="navigation" aria-label="Primary" className="hidden md:flex items-center gap-6 text-sm font-medium">
+          {/* Desktop Navigation */}
+          <nav role="navigation" aria-label="Primary" className="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium">
             <Link
               href="/"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
@@ -135,7 +142,8 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 px-2 transition-transform hover:-translate-y-0.5">
                   <FaGlobe aria-hidden className="mr-2" />
-                  Language
+                  <span className="hidden lg:inline">Language</span>
+                  <span className="lg:hidden">Lang</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" sideOffset={8}>
@@ -149,15 +157,87 @@ const Header = () => {
             </DropdownMenu>
           </nav>
 
-          <div className="flex items-center gap-4">
-            <Button asChild variant="ghost" className="transition-transform hover:-translate-y-0.5">
+          {/* Desktop Auth Buttons */}
+          <div className="hidden md:flex items-center gap-3 lg:gap-4">
+            <Button asChild variant="ghost" className="transition-transform hover:-translate-y-0.5 text-sm lg:text-base">
               <Link href="/sign-in">Sign In</Link>
             </Button>
-            <Button className="bg-emerald-500 hover:bg-emerald-600 text-white transition-transform hover:-translate-y-0.5">
+            <Button className="bg-emerald-500 hover:bg-emerald-600 text-white transition-transform hover:-translate-y-0.5 text-sm lg:text-base px-4 lg:px-6">
               <Link href="/sign-up">Sign Up</Link>
             </Button>
           </div>
+
+          {/* Mobile Menu Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </Button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-border mt-4 py-4"
+          >
+            <div className="flex flex-col space-y-4">
+              <Link
+                href="/"
+                className="text-foreground/90 hover:text-emerald-400 transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              
+              <button
+                onClick={() => {
+                  toggleChat();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="text-left text-foreground/90 hover:text-emerald-400 transition-colors py-2"
+              >
+                Chatbot
+              </button>
+
+              <Link
+                href="/faq"
+                className="text-foreground/90 hover:text-emerald-400 transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Q&A
+              </Link>
+
+              <Link
+                href="/insurance"
+                className="text-foreground/90 hover:text-emerald-400 transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Insurance
+              </Link>
+
+              {/* Mobile Auth Buttons */}
+              <div className="flex flex-col space-y-3 pt-4 border-t border-border">
+                <Button asChild variant="ghost" className="justify-start">
+                  <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
+                    Sign In
+                  </Link>
+                </Button>
+                <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">
+                  <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
+                    Sign Up
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </div>
     </motion.header>
   )

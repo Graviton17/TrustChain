@@ -7,23 +7,23 @@ const Footer = () => {
   const router = useRouter();
   return (
     <footer className="bg-background border-t border-border">
-      <div className="mx-auto max-w-7xl px-4 pt-16 pb-8 text-muted-foreground">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-6 sm:pb-8 text-muted-foreground">
         {/* Call to Action */}
-        <div className="text-center mb-12">
-          <h3 className="text-2xl md:text-3xl text-foreground mb-4 text-balance">
+        <div className="text-center mb-8 sm:mb-12">
+          <h3 className="text-xl sm:text-2xl md:text-3xl text-foreground mb-4 text-balance px-4">
             Ready to revolutionize your subsidy program?
           </h3>
           <motion.button
             whileHover={{ y: -1, scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
-            className="rounded-lg bg-amber-400 px-6 py-3 text-base font-semibold text-gray-900 hover:bg-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="rounded-lg bg-amber-400 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold text-gray-900 hover:bg-amber-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
             onClick={() => router.push('/speak-with-specialist')}
           >
             Speak with Specialist
           </motion.button>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 border-t border-border pt-12 md:grid-cols-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 border-t border-border pt-8 sm:pt-12">
           {/* Column 1: TrustChain */}
           <div>
             <h4 className="font-semibold text-foreground mb-4">TrustChain</h4>

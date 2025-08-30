@@ -21,9 +21,9 @@ const StatsSection = () => {
   }, [isInView, controls])
 
   return (
-    <section ref={ref} className="py-20 bg-deep-gradient">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center text-white">
+    <section ref={ref} className="py-12 sm:py-16 lg:py-20 bg-deep-gradient">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center text-white">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -34,11 +34,12 @@ const StatsSection = () => {
               initial="hidden"
               animate={controls}
               transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="p-4 sm:p-6"
             >
-              <p className={`text-5xl font-extrabold ${stat.color} mb-2`}>
+              <p className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold ${stat.color} mb-1 sm:mb-2`}>
                 {isInView ? <CountUp end={stat.end} decimals={stat.decimals} duration={1} suffix={stat.suffix} /> : "0"}
               </p>
-              <p className="text-lg text-gray-300">{stat.label}</p>
+              <p className="text-sm sm:text-base lg:text-lg text-gray-300">{stat.label}</p>
             </motion.div>
           ))}
         </div>

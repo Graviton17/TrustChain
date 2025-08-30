@@ -11,7 +11,7 @@ interface HeroSectionProps {
 const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
   return (
     <section className="bg-background text-foreground">
-      <div className="mx-auto max-w-7xl px-4 py-20 text-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 text-center">
         <motion.div
           initial="hidden"
           animate="show"
@@ -27,7 +27,7 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
           </div>
 
           <motion.h1
-            className="text-balance text-4xl md:text-6xl font-extrabold tracking-tight mb-4"
+            className="text-balance text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6"
             variants={{
               hidden: { opacity: 0, y: 8 },
               show: { opacity: 1, y: 0 },
@@ -38,7 +38,7 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
           </motion.h1>
 
           <motion.p
-            className="mx-auto max-w-3xl text-pretty text-lg md:text-xl text-muted-foreground mb-10"
+            className="mx-auto max-w-3xl text-pretty text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-10 px-4"
             variants={{
               hidden: { opacity: 0, y: 8 },
               show: { opacity: 1, y: 0 },
@@ -51,7 +51,7 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
           </motion.p>
 
           <motion.ul
-            className="mx-auto mb-10 grid max-w-4xl grid-cols-2 gap-3 md:grid-cols-4 text-sm md:text-base"
+            className="mx-auto mb-8 sm:mb-10 grid max-w-4xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm md:text-base px-4"
             variants={{
               hidden: {},
               show: { transition: { staggerChildren: 0.05 } },
@@ -65,7 +65,7 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
             ].map(({ Icon, text }, i) => (
               <motion.li
                 key={text}
-                className="flex items-center justify-center gap-2"
+                className="flex items-center justify-center gap-2 p-2 sm:p-0"
                 variants={{
                   hidden: { opacity: 0, y: 6 },
                   show: { opacity: 1, y: 0 },
@@ -77,14 +77,14 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
                   delay: i * 0.02,
                 }}
               >
-                <Icon className="text-emerald-400" aria-hidden />
-                <span>{text}</span>
+                <Icon className="text-emerald-400 flex-shrink-0" aria-hidden />
+                <span className="text-center sm:text-left">{text}</span>
               </motion.li>
             ))}
           </motion.ul>
 
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
             variants={{
               hidden: { opacity: 0, y: 8 },
               show: { opacity: 1, y: 0 },
@@ -95,10 +95,11 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
             <motion.div
               whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto"
             >
               <Button 
                 onClick={onStartApplication}
-                className="bg-emerald-500 hover:bg-emerald-600 text-gray-900 text-lg px-6 py-6"
+                className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-gray-900 text-base sm:text-lg px-6 py-4 sm:py-6"
               >
                 Start Your Application
               </Button>
@@ -108,10 +109,11 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
             <motion.div
               whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto"
             >
               <Button
                 variant="outline"
-                className="border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-gray-900 text-lg px-6 py-6 bg-transparent"
+                className="w-full sm:w-auto border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-gray-900 text-base sm:text-lg px-6 py-4 sm:py-6 bg-transparent"
               >
                 Watch Demo
               </Button>
@@ -121,17 +123,19 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
              <motion.div
               whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto"
             >
               <Button
                 asChild
-                className="bg-amber-400 hover:bg-amber-500 text-gray-900 text-lg px-6 py-6"
+                className="w-full sm:w-auto bg-amber-400 hover:bg-amber-500 text-gray-900 text-base sm:text-lg px-6 py-4 sm:py-6"
               >
                 <a
                   href="/TrustChain-Whitepaper.pdf"
                   download="TrustChain-Whitepaper.pdf"
                   className="bg-yellow-500 px-6 py-2 rounded-lg text-white font-semibold shadow-md hover:bg-yellow-600 transition duration-200"
                 >
-                  Download Whitepaper
+                  <span className="hidden sm:inline">Download Whitepaper</span>
+                  <span className="sm:hidden">Whitepaper</span>
                 </a>
               </Button>
             </motion.div>

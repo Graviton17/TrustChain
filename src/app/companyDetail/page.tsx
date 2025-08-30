@@ -378,67 +378,67 @@ export default function CompanyApplicationPage() {
         );
       case "review":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <h3 className="text-lg font-semibold text-gray-900">
               Review Your Company Application
             </h3>
-            <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div>
+            <div className="bg-gray-50 p-4 sm:p-6 rounded-lg space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
+                <div className="break-words">
                   <span className="font-medium text-gray-700">User ID:</span>
-                  <span className="ml-2 text-gray-900">{formData.userId}</span>
+                  <span className="ml-2 text-gray-900 block sm:inline">{formData.userId}</span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">
                     Company Name:
                   </span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     {formData.company_name}
                   </span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">
                     Registration Number:
                   </span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     {formData.registration_number}
                   </span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">
                     Company Type:
                   </span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     {formData.company_type}
                   </span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">
                     Contact Person:
                   </span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     {formData.contact_person_name}
                   </span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">
                     Contact Email:
                   </span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     {formData.contact_email}
                   </span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">
                     Annual Revenue:
                   </span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     ${formData.annual_revenue}
                   </span>
                 </div>
-                <div>
+                <div className="break-words">
                   <span className="font-medium text-gray-700">Employees:</span>
-                  <span className="ml-2 text-gray-900">
+                  <span className="ml-2 text-gray-900 block sm:inline">
                     {formData.employees}
                   </span>
                 </div>
@@ -455,10 +455,10 @@ export default function CompanyApplicationPage() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <SuccessAnimation />
           <div className="text-center mt-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
               Company Details Submitted Successfully!
             </h2>
             <p className="text-gray-600 mb-6">
@@ -472,13 +472,14 @@ export default function CompanyApplicationPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Step Indicator */}
-        <StepIndicator steps={steps} currentStep={currentStep} />
+        <div className="mb-6 sm:mb-8">
+          <StepIndicator steps={steps} currentStep={currentStep} />
+        </div>
 
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <ProgressBar
             currentStep={currentStep + 1}
             totalSteps={steps.length}
@@ -486,12 +487,12 @@ export default function CompanyApplicationPage() {
         </div>
 
         {/* Form Content */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+          <div className="mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
               {steps[currentStep].title}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Step {currentStep + 1} of {steps.length}
             </p>
           </div>
@@ -501,7 +502,7 @@ export default function CompanyApplicationPage() {
 
         {/* Error Display */}
         {errors.submit && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div className="mb-4 sm:mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <svg
@@ -524,11 +525,11 @@ export default function CompanyApplicationPage() {
         )}
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between">
+        <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-0">
           <button
             onClick={handlePrevious}
             disabled={currentStep === 0}
-            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+            className={`w-full sm:w-auto px-4 sm:px-6 py-3 rounded-lg font-medium transition-colors ${
               currentStep === 0
                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -541,7 +542,7 @@ export default function CompanyApplicationPage() {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className={`px-8 py-3 rounded-lg font-medium transition-colors ${
+              className={`w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg font-medium transition-colors ${
                 isSubmitting
                   ? "bg-emerald-400 text-white cursor-not-allowed"
                   : "bg-emerald-600 text-white hover:bg-emerald-700"
@@ -552,7 +553,7 @@ export default function CompanyApplicationPage() {
           ) : (
             <button
               onClick={handleNext}
-              className="px-6 py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors"
+              className="w-full sm:w-auto px-4 sm:px-6 py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors"
             >
               Next
             </button>

@@ -138,8 +138,11 @@ const InsuranceManager = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600"></div>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 sm:h-24 sm:w-24 lg:h-32 lg:w-32 border-b-2 border-green-600 mx-auto"></div>
+          <p className="mt-4 text-sm sm:text-base text-gray-600">Loading insurance policies...</p>
+        </div>
       </div>
     );
   }
@@ -149,20 +152,20 @@ const InsuranceManager = () => {
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-green-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
-              <Shield className="w-8 h-8 text-green-600" />
+              <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Insurance Policy Manager</h1>
-                <p className="text-sm text-green-600">Manage Green Hydrogen Insurance Policies</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Insurance Policy Manager</h1>
+                <p className="text-xs sm:text-sm text-green-600">Manage Green Hydrogen Insurance Policies</p>
               </div>
             </div>
             <button
               onClick={() => setIsAddingPolicy(true)}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-green-700 transition-colors"
+              className="w-full sm:w-auto bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition-colors"
             >
-              <Plus className="w-5 h-5" />
-              <span>Add New Policy</span>
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-sm sm:text-base">Add New Policy</span>
             </button>
           </div>
         </div>
@@ -176,16 +179,16 @@ const InsuranceManager = () => {
         )}
 
         {isAddingPolicy ? (
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Insurance Policy</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Add New Insurance Policy</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Policy Name</label>
                 <input
                   type="text"
                   value={newPolicy.policy_name}
                   onChange={(e) => setNewPolicy({ ...newPolicy, policy_name: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-md text-sm sm:text-base"
                 />
               </div>
               <div>
@@ -193,7 +196,7 @@ const InsuranceManager = () => {
                 <select
                   value={newPolicy.policy_type}
                   onChange={(e) => setNewPolicy({ ...newPolicy, policy_type: e.target.value })}
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 sm:p-3 border border-gray-300 rounded-md text-sm sm:text-base"
                 >
                   <option value="National">National</option>
                   <option value="State-Level">State-Level</option>

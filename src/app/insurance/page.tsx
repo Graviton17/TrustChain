@@ -241,13 +241,13 @@ const InsurancePage = () => {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
 
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 text-white py-16">
+      <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 text-white py-12 sm:py-16">
         <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
             Secure Your Green Hydrogen Investments
           </h2>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-green-100 max-w-3xl mx-auto px-4">
             Comprehensive insurance coverage for green hydrogen subsidies and
             incentives across India, powered by blockchain technology for
             complete transparency and automated processing.
@@ -256,8 +256,8 @@ const InsurancePage = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-wrap justify-center space-x-1 bg-gray-100 p-1 rounded-lg mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="flex flex-wrap justify-center space-x-1 bg-gray-100 p-1 rounded-lg mb-6 sm:mb-8 overflow-x-auto">
           {[
             { id: "national", label: "National Mission" },
             { id: "states", label: "State Policies" },
@@ -268,7 +268,7 @@ const InsurancePage = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-md font-medium transition-all ${
+              className={`px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base font-medium transition-all whitespace-nowrap ${
                 activeTab === tab.id
                   ? "bg-green-600 text-white shadow-md"
                   : "text-gray-600 hover:text-green-600 hover:bg-white"
@@ -281,25 +281,25 @@ const InsurancePage = () => {
 
         {/* Content Sections */}
         {activeTab === "national" && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {nationalPolicies.map((policy) => (
               <div
                 key={policy.$id}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-green-100"
+                className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 border border-green-100"
               >
-                <div className="flex items-center mb-6">
-                  <Award className="w-8 h-8 text-green-600 mr-3" />
-                  <h3 className="text-3xl font-bold text-gray-900">
+                <div className="flex flex-col sm:flex-row sm:items-center mb-4 sm:mb-6 gap-3">
+                  <Award className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 flex-shrink-0" />
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
                     {policy.policy_name}
                   </h3>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 mb-8">
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl">
-                    <h4 className="text-lg font-semibold text-green-800 mb-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 sm:p-6 rounded-xl">
+                    <h4 className="text-base sm:text-lg font-semibold text-green-800 mb-2">
                       Total Programme Outlay
                     </h4>
-                    <p className="text-3xl font-bold text-green-600">
+                    <p className="text-2xl sm:text-3xl font-bold text-green-600">
                       {policy.total_outlay_covered}
                     </p>
                     <p className="text-sm text-gray-600 mt-2">
@@ -307,22 +307,22 @@ const InsurancePage = () => {
                     </p>
                   </div>
 
-                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl">
-                    <h4 className="text-lg font-semibold text-blue-800 mb-2">
+                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 sm:p-6 rounded-xl">
+                    <h4 className="text-base sm:text-lg font-semibold text-blue-800 mb-2">
                       Policy Description
                     </h4>
-                    <p className="text-lg text-blue-600">
+                    <p className="text-base sm:text-lg text-blue-600">
                       {policy.description}
                     </p>
                   </div>
                 </div>
 
                 {policy.eligibility_summary && (
-                  <div className="bg-gray-50 p-6 rounded-xl">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-4">
+                  <div className="bg-gray-50 p-4 sm:p-6 rounded-xl">
+                    <h4 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
                       Eligibility Criteria
                     </h4>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 text-sm sm:text-base">
                       {policy.eligibility_summary}
                     </p>
                   </div>
@@ -334,7 +334,7 @@ const InsurancePage = () => {
                       href={policy.terms_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-green-600 hover:text-green-700 font-medium inline-flex items-center"
+                      className="text-green-600 hover:text-green-700 font-medium inline-flex items-center text-sm sm:text-base"
                     >
                       <span>View Full Policy Details</span>
                       <CheckCircle className="w-4 h-4 ml-2" />
@@ -347,47 +347,47 @@ const InsurancePage = () => {
         )}
 
         {activeTab === "states" && (
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900 text-center mb-8">
+          <div className="space-y-4 sm:space-y-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8">
               State-Level Green Hydrogen Policies
             </h3>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {statePolicies.map((policy) => (
                 <div
                   key={policy.$id}
-                  className="bg-white rounded-2xl shadow-xl p-6 border border-green-100 hover:shadow-2xl transition-shadow"
+                  className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 border border-green-100 hover:shadow-2xl transition-shadow"
                 >
                   <div className="flex items-center mb-4">
-                    <div className="bg-green-100 p-3 rounded-lg mr-4">
-                      <MapPin className="w-6 h-6 text-green-600" />
+                    <div className="bg-green-100 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4 flex-shrink-0">
+                      <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                     </div>
-                    <h4 className="text-xl font-bold text-gray-900">
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900">
                       {policy.target_region || "All Regions"}
                     </h4>
                   </div>
 
-                  <div className="bg-green-50 p-4 rounded-lg mb-4">
-                    <p className="text-green-800 font-medium">
+                  <div className="bg-green-50 p-3 sm:p-4 rounded-lg mb-4">
+                    <p className="text-green-800 font-medium text-sm sm:text-base">
                       {policy.total_outlay_covered}
                     </p>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div>
-                      <h5 className="font-semibold text-gray-900 mb-2">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                         Description:
                       </h5>
-                      <p className="text-gray-700 text-sm">
+                      <p className="text-gray-700 text-xs sm:text-sm">
                         {policy.description}
                       </p>
                     </div>
 
                     {policy.eligibility_summary && (
                       <div>
-                        <h5 className="font-semibold text-gray-900 mb-2">
+                        <h5 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                           Eligibility Criteria:
                         </h5>
-                        <p className="text-gray-700 text-sm">
+                        <p className="text-gray-700 text-xs sm:text-sm">
                           {policy.eligibility_summary}
                         </p>
                       </div>
@@ -398,10 +398,10 @@ const InsurancePage = () => {
                         href={policy.terms_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium"
+                        className="inline-flex items-center text-green-600 hover:text-green-700 text-xs sm:text-sm font-medium"
                       >
                         View Full Policy Details
-                        <CheckCircle className="w-4 h-4 ml-2" />
+                        <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
                       </a>
                     )}
                   </div>
@@ -412,39 +412,39 @@ const InsurancePage = () => {
         )}
 
         {activeTab === "companies" && (
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900 text-center mb-8">
+          <div className="space-y-4 sm:space-y-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8">
               Leading Insurance Providers
             </h3>
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {insuranceCompanies.map((company, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl shadow-xl p-8 border border-green-100"
+                  className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 border border-green-100"
                 >
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                    <div>
-                      <h4 className="text-2xl font-bold text-gray-900 mb-2">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 sm:mb-6 gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                         {company.name}
                       </h4>
-                      <div className="flex items-center space-x-4">
-                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-2 sm:gap-0">
+                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs sm:text-sm font-medium w-fit">
                           {company.rating} Settlement Ratio
                         </span>
-                        <span className="text-gray-600">{company.rank}</span>
+                        <span className="text-gray-600 text-sm sm:text-base">{company.rank}</span>
                       </div>
                     </div>
-                    <div className="mt-4 md:mt-0">
-                      <Shield className="w-12 h-12 text-green-600" />
+                    <div className="flex-shrink-0">
+                      <Shield className="w-10 h-10 sm:w-12 sm:h-12 text-green-600" />
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {company.services.map((service, sIndex) => (
-                      <div key={sIndex} className="bg-gray-50 p-4 rounded-lg">
+                      <div key={sIndex} className="bg-gray-50 p-3 sm:p-4 rounded-lg">
                         <div className="flex items-start space-x-2">
                           <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">
+                          <span className="text-gray-700 text-xs sm:text-sm">
                             {service}
                           </span>
                         </div>
@@ -458,30 +458,30 @@ const InsurancePage = () => {
         )}
 
         {activeTab === "components" && (
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900 text-center mb-8">
+          <div className="space-y-4 sm:space-y-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8">
               Subsidy Insurance Components
             </h3>
-            <div className="grid lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {subsidyComponents.map((component, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl shadow-xl p-6 border border-green-100 hover:shadow-2xl transition-shadow"
+                  className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 border border-green-100 hover:shadow-2xl transition-shadow"
                 >
-                  <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                    <Shield className="w-6 h-6 text-green-600" />
+                  <div className="bg-green-100 w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4">
+                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                   </div>
 
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">
+                  <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
                     {component.title}
                   </h4>
-                  <p className="text-gray-600 mb-4">{component.description}</p>
+                  <p className="text-gray-600 mb-4 text-sm sm:text-base">{component.description}</p>
 
                   <div className="space-y-2">
                     {component.features.map((feature, fIndex) => (
                       <div key={fIndex} className="flex items-start space-x-2">
                         <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{feature}</span>
+                        <span className="text-gray-700 text-xs sm:text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -490,26 +490,26 @@ const InsurancePage = () => {
             </div>
 
             {/* Technology Integration */}
-            <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white mt-12">
-              <h4 className="text-2xl font-bold mb-6">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 sm:p-8 text-white mt-8 sm:mt-12">
+              <h4 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
                 Technology Integration Features
               </h4>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h5 className="text-lg font-semibold mb-3">
+                  <h5 className="text-base sm:text-lg font-semibold mb-3">
                     Digital India Integration
                   </h5>
-                  <ul className="space-y-2 text-green-100">
+                  <ul className="space-y-2 text-green-100 text-sm sm:text-base">
                     <li>• National Single Window System (NSWS) integration</li>
                     <li>• Automated compliance verification</li>
                     <li>• MNRE systems integration</li>
                   </ul>
                 </div>
                 <div>
-                  <h5 className="text-lg font-semibold mb-3">
+                  <h5 className="text-base sm:text-lg font-semibold mb-3">
                     Blockchain-Enabled Features
                   </h5>
-                  <ul className="space-y-2 text-green-100">
+                  <ul className="space-y-2 text-green-100 text-sm sm:text-base">
                     <li>• Real-time tracking of subsidy disbursement</li>
                     <li>• Immutable transaction records</li>
                     <li>• Multi-language support</li>
@@ -522,40 +522,40 @@ const InsurancePage = () => {
         )}
 
         {activeTab === "pricing" && (
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900 text-center mb-8">
+          <div className="space-y-4 sm:space-y-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8">
               Premium Structure
             </h3>
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-green-100">
-              <div className="bg-green-600 text-white p-6">
-                <h4 className="text-xl font-bold">
+              <div className="bg-green-600 text-white p-4 sm:p-6">
+                <h4 className="text-lg sm:text-xl font-bold">
                   Indian Market Premium Rates
                 </h4>
-                <p className="text-green-100">
+                <p className="text-green-100 text-sm sm:text-base">
                   Competitive pricing for comprehensive coverage
                 </p>
               </div>
 
-              <div className="p-6">
-                <div className="grid gap-4">
+              <div className="p-4 sm:p-6">
+                <div className="grid gap-3 sm:gap-4">
                   {premiumStructure.map((item, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-green-50 transition-colors"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-green-50 transition-colors gap-3 sm:gap-0"
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="bg-green-100 w-10 h-10 rounded-lg flex items-center justify-center">
-                          <TrendingUp className="w-5 h-5 text-green-600" />
+                        <div className="bg-green-100 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                         </div>
-                        <div>
-                          <h5 className="font-semibold text-gray-900">
+                        <div className="min-w-0 flex-1">
+                          <h5 className="font-semibold text-gray-900 text-sm sm:text-base">
                             {item.type}
                           </h5>
-                          <p className="text-sm text-gray-600">{item.basis}</p>
+                          <p className="text-xs sm:text-sm text-gray-600">{item.basis}</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-lg font-bold text-green-600">
+                      <div className="text-left sm:text-right">
+                        <p className="text-base sm:text-lg font-bold text-green-600">
                           {item.range}
                         </p>
                       </div>
@@ -566,18 +566,18 @@ const InsurancePage = () => {
             </div>
 
             {/* Call to Action */}
-            <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white text-center">
-              <h4 className="text-2xl font-bold mb-4">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 sm:p-8 text-white text-center">
+              <h4 className="text-xl sm:text-2xl font-bold mb-4">
                 Ready to Secure Your Green Hydrogen Project?
               </h4>
-              <p className="text-green-100 mb-6">
+              <p className="text-green-100 mb-6 text-sm sm:text-base">
                 Get started with TrustChain&apos;s blockchain-powered insurance
                 solutions
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <button
                   onClick={() => router.push("/insurance-manager")}
-                  className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                  className="bg-white text-green-600 px-6 sm:px-8 py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors"
                 >
                   Start Your Application
                 </button>
@@ -594,7 +594,7 @@ const InsurancePage = () => {
                       console.error("Error downloading whitepaper:", error);
                     }
                   }}
-                  className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors"
+                  className="border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-white hover:text-green-600 transition-colors"
                 >
                   Download Whitepaper
                 </button>
@@ -605,30 +605,30 @@ const InsurancePage = () => {
       </div>
 
       {/* Footer Stats */}
-      <div className="bg-gray-900 text-white py-12 mt-16">
+      <div className="bg-gray-900 text-white py-8 sm:py-12 mt-12 sm:mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
             <div>
-              <p className="text-3xl font-bold text-green-400">
+              <p className="text-2xl sm:text-3xl font-bold text-green-400">
                 {nationalPolicies.length}
               </p>
-              <p className="text-gray-300">National Policies</p>
+              <p className="text-gray-300 text-sm sm:text-base">National Policies</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-green-400">
+              <p className="text-2xl sm:text-3xl font-bold text-green-400">
                 {statePolicies.length}
               </p>
-              <p className="text-gray-300">State Policies</p>
+              <p className="text-gray-300 text-sm sm:text-base">State Policies</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-green-400">
+              <p className="text-2xl sm:text-3xl font-bold text-green-400">
                 {policies.length}
               </p>
-              <p className="text-gray-300">Total Policies</p>
+              <p className="text-gray-300 text-sm sm:text-base">Total Policies</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-green-400">100%</p>
-              <p className="text-gray-300">Blockchain Transparency</p>
+              <p className="text-2xl sm:text-3xl font-bold text-green-400">100%</p>
+              <p className="text-gray-300 text-sm sm:text-base">Blockchain Transparency</p>
             </div>
           </div>
         </div>

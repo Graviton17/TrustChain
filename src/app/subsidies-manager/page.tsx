@@ -265,17 +265,17 @@ export default function SubsidiesManagerPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <div className="bg-white/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 sm:py-6 gap-4">
             <div className="flex items-center space-x-3">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-20"></div>
-                <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 p-3 rounded-2xl">
-                  <DollarSign className="h-6 w-6 text-white" />
+                <div className="relative bg-gradient-to-r from-green-600 to-emerald-600 p-2 sm:p-3 rounded-2xl">
+                  <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                   Subsidies Portal
                 </h1>
                 <p className="text-sm text-gray-600 mt-1">Discover funding opportunities worldwide</p>
