@@ -1,6 +1,7 @@
 "use client";
 import { FaLink, FaBolt, FaShieldAlt, FaGlobe } from "react-icons/fa";
 import { motion, easeOut } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const container = {
   hidden: { opacity: 0 },
@@ -16,6 +17,7 @@ const item = {
 };
 
 const HeroSection = () => {
+  const router = useRouter();
   return (
     <section className="bg-gray-900 text-white text-center py-20 px-4">
       <motion.div variants={container} initial="hidden" animate="show">
@@ -60,22 +62,16 @@ const HeroSection = () => {
           variants={item}
           className="flex flex-col sm:flex-row justify-center items-center gap-4"
         >
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="relative overflow-hidden bg-green-gradient text-gray-900 font-bold py-3 px-8 rounded-lg text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-green focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
-            aria-label="Start your application"
-          >
-            <span className="relative z-10">Start Your Application</span>
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -translate-x-full bg-white/20 mix-blend-overlay"
-              style={{
-                maskImage:
-                  "linear-gradient(90deg, transparent, black 40%, black 60%, transparent)",
-              }}
-            />
-          </motion.button>
+          <button
+  type="button"
+  className="bg-green-500 text-white font-bold py-3 px-8 rounded-lg text-lg"
+  onClick={() => {
+    console.log("Plain button clicked!");
+    router.push('/company-application');
+  }}
+>
+  Start Your Application
+</button>
 
           <motion.button
             whileHover={{ scale: 1.03 }}
