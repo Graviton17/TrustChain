@@ -1,6 +1,6 @@
-import { db, CompanyProfilesCollection } from "../../name"; // Adjust your import paths and names
+import { db, CompanyProfilesCollection } from "../../../name"; // Adjust your import paths and names
 import { Permission, IndexType } from "node-appwrite";
-import { databases } from "../config";
+import { databases } from "../../config";
 
 export default async function createCompanyProfilesCollection() {
   try {
