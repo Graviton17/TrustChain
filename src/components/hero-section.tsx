@@ -105,7 +105,7 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
               </Button>
             </motion.div>
 
-            {/* DYNAMIC_CONTENT: would open a modal video */}
+            {/* DYNAMIC_CONTENT: opens YouTube demo video */}
             <motion.div
               whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
@@ -113,6 +113,7 @@ const HeroSection = ({ onStartApplication }: HeroSectionProps) => {
             >
               <Button
                 variant="outline"
+                onClick={() => window.open('https://youtu.be/T2XaBGBrviw', '_blank')}
                 className="w-full sm:w-auto border-emerald-500 text-emerald-400 hover:bg-emerald-500 hover:text-gray-900 text-base sm:text-lg px-6 py-4 sm:py-6 bg-transparent"
               >
                 Watch Demo

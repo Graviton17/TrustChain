@@ -1,9 +1,12 @@
 import React from 'react'
 import { DollarSign, Building } from 'lucide-react'
 import { useUser } from "@clerk/nextjs"
+import { getRoleFromUser } from "@/utils/roles"
 
 function SubsidiesHeader() {
   const { user } = useUser();
+  const userRole = user ? getRoleFromUser(user) : null;
+  
   return (
     <div className="bg-white/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,13 +33,17 @@ function SubsidiesHeader() {
                   {user?.username || user?.emailAddresses?.[0]?.emailAddress || "User"}
                 </span>
               </div>
-              <a
-                href="http://localhost:3000/subsidies-manager"
-                className="px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl hover:from-green-700 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl inline-flex items-center"
-              >
-                <Building className="h-4 w-4 mr-2" />
-                Manage Subsidies
-              </a>
+              
+              {/* Only show Manage Subsidies button for government users */}
+              {userRole === "government" && (
+                <a
+                  href="/subsidies-manager"
+                  className="px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl hover:from-green-700 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl inline-flex items-center"
+                >
+                  <Building className="h-4 w-4 mr-2" />
+                  Manage Subsidies
+                </a>
+              )}
             </div>
           </div>
         </div>

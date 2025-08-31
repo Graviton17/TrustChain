@@ -184,6 +184,17 @@ const Header = () => {
             </Link>
 
             <Link
+              href="/subsidies"
+              className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
+            >
+              Subsidies
+              <span
+                aria-hidden
+                className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-px origin-left scale-x-0 bg-foreground/40 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
+              />
+            </Link>
+
+            <Link
               href="/insurance"
               className="relative group text-foreground/90 hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded"
             >
@@ -380,6 +391,14 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Q&A
+              </Link>
+
+              <Link
+                href="/subsidies"
+                className="text-foreground/90 hover:text-emerald-400 transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Subsidies
               </Link>
 
               <Link
