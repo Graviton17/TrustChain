@@ -11,6 +11,7 @@ import type {
 } from "@/types/subsidy";
 import { PROGRAM_TYPES, SUBSIDY_STATUS } from "@/types/subsidy";
 import { DollarSign, Building } from "lucide-react";
+import LogoutButton from "@/components/LogoutButton";
 
 const COUNTRIES = [
   "India",
@@ -284,8 +285,9 @@ export default function SubsidiesManagerPage() {
             
             <div className="flex items-center space-x-4">
               <div className="text-sm text-gray-600 bg-white/50 px-4 py-2 rounded-full border border-gray-200">
-                Welcome, <span className="font-medium">krishkalola@outlook.com</span>
+                Welcome, <span className="font-medium">{user?.firstName || user?.emailAddresses?.[0]?.emailAddress}</span>
               </div>
+              <LogoutButton variant="secondary" className="text-sm" />
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Shield, Plus, Trash2 } from 'lucide-react';
 import { InsurancePolicy, CreateInsurancePolicyRequest } from '@/types/insurance';
+import LogoutButton from '@/components/LogoutButton';
 
 const InsuranceManager = () => {
   const [policies, setPolicies] = useState<InsurancePolicy[]>([]);
@@ -160,13 +161,16 @@ const InsuranceManager = () => {
                 <p className="text-xs sm:text-sm text-green-600">Manage Green Hydrogen Insurance Policies</p>
               </div>
             </div>
-            <button
-              onClick={() => setIsAddingPolicy(true)}
-              className="w-full sm:w-auto bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition-colors"
-            >
-              <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-sm sm:text-base">Add New Policy</span>
-            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setIsAddingPolicy(true)}
+                className="w-full sm:w-auto bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-green-700 transition-colors"
+              >
+                <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-sm sm:text-base">Add New Policy</span>
+              </button>
+              <LogoutButton variant="secondary" className="text-sm" />
+            </div>
           </div>
         </div>
       </div>

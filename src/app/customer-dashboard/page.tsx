@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { getRoleFromUser } from "@/utils/roles";
+import LogoutButton from "@/components/LogoutButton";
 
 export default function CustomerDashboard() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -55,9 +56,12 @@ export default function CustomerDashboard() {
               </h1>
               <span className="ml-2 sm:ml-3 text-xl sm:text-2xl">👤</span>
             </div>
-            <div className="text-sm text-gray-600 truncate">
-              Welcome,{" "}
-              {user?.firstName || user?.emailAddresses?.[0]?.emailAddress}
+            <div className="flex items-center gap-4">
+              <div className="text-sm text-gray-600 truncate">
+                Welcome,{" "}
+                {user?.firstName || user?.emailAddresses?.[0]?.emailAddress}
+              </div>
+              <LogoutButton variant="secondary" className="text-sm" />
             </div>
           </div>
         </div>
