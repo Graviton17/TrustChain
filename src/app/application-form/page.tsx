@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Factory, Users, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { ApplicationResponse } from "@/types/application";
 
 export default function ApplicationForm() {
   const router = useRouter();
@@ -15,7 +16,25 @@ export default function ApplicationForm() {
   }, []);
 
   const roleValue = role ?? "consumer";
-  const [formData, setFormData] = useState({
+  interface FormData {
+    // Common fields
+    companyName: string;
+    email: string;
+    phone: string;
+    address: string;
+
+    // Producer specific fields
+    productionCapacity: string;
+    technologyType: string;
+    certifications: string;
+
+    // Consumer specific fields
+    requiredVolume: string;
+    usageType: string;
+    timeframe: string;
+  }
+
+  const [formData, setFormData] = useState<FormData>({
     // Common fields
     companyName: "",
     email: "",
@@ -62,7 +81,7 @@ export default function ApplicationForm() {
 
       if (response.ok) {
         // read response body to get any saved id or logoUrl (if your API returns them)
-        let respJson = {} as any;
+        let respJson: ApplicationResponse = {};
         try {
           respJson = await response.json();
         } catch (e) {
@@ -102,6 +121,7 @@ export default function ApplicationForm() {
               <button
                 onClick={() => router.back()}
                 className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100"
+                aria-label="Go back"
               >
                 <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline text-sm sm:text-base">Back</span>
@@ -143,14 +163,15 @@ export default function ApplicationForm() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8" noValidate>
             {/* Common Fields */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
                   Company Name *
                 </label>
                 <input
+                  id="companyName"
                   type="text"
                   name="companyName"
                   value={formData.companyName}
@@ -158,14 +179,16 @@ export default function ApplicationForm() {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
                   placeholder="Enter your company name"
                   required
-                />
+                  aria-required="true"
+                  />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                   Email *
                 </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
@@ -173,7 +196,8 @@ export default function ApplicationForm() {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
                   placeholder="your@email.com"
                   required
-                />
+                  aria-required="true"
+                  />
               </div>
 
               <div>

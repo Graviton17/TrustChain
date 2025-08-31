@@ -14,7 +14,7 @@ export default function SpecialistPage() {
               Speak With a Specialist
             </h1>
             <p className="max-w-3xl mx-auto text-base sm:text-lg text-gray-600 px-4">
-              Leave a detailed message for our team and we'll get back to you.
+              Leave a detailed message for our team and we&apos;ll get back to you.
             </p>
           </div>
 
