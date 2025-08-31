@@ -10,7 +10,7 @@ import type {
   IncentiveDetails,
 } from "@/types/subsidy";
 import { PROGRAM_TYPES, SUBSIDY_STATUS } from "@/types/subsidy";
-import { DollarSign, Building } from "lucide-react";
+import { DollarSign } from "lucide-react";
 import LogoutButton from "@/components/LogoutButton";
 
 const COUNTRIES = [

@@ -5,34 +5,11 @@ import {
   Shield,
   CheckCircle,
   MapPin,
-  Building,
   Award,
   TrendingUp,
-  Zap,
-  Globe,
 } from "lucide-react";
 import { InsurancePolicy } from "@/types/insurance";
 import { useRouter } from "next/navigation";
-
-interface StatePolicy {
-  state: string;
-  coverage: string;
-  features: string[];
-  icon: React.ReactNode;
-}
-
-interface InsuranceCompany {
-  name: string;
-  rating: string;
-  rank: string;
-  services: string[];
-}
-
-interface SubsidyComponent {
-  title: string;
-  description: string;
-  features: string[];
-}
 
 interface PremiumStructure {
   type: string;
@@ -44,8 +21,6 @@ const InsurancePage = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("national");
   const [policies, setPolicies] = useState<InsurancePolicy[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPolicies = async () => {
@@ -54,14 +29,9 @@ const InsurancePage = () => {
         const data = await response.json();
         if (data.success && data.data) {
           setPolicies(data.data);
-        } else {
-          setError(data.error || "Failed to fetch insurance policies");
         }
       } catch (err) {
-        setError("Failed to fetch insurance policies");
         console.error("Error fetching policies:", err);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -75,61 +45,6 @@ const InsurancePage = () => {
   const statePolicies = policies.filter(
     (policy) => policy.policy_type === "State-Level"
   );
-
-  const nationalMissionData = nationalPolicies[0] || {
-    policy_name: "National Green Hydrogen Mission (NGHM)",
-    total_outlay_covered: "₹17,490 crores",
-    description: "Strategic Interventions for Green Hydrogen Transition",
-    features: [
-      "Strategic Interventions for Green Hydrogen Transition (SIGHT) programme",
-      "Blockchain-based milestone verification",
-      "Automated disbursement system",
-      "Global hub development for production, usage and export",
-    ],
-  };
-
-  const statesPolicies = [
-    {
-      state: "Gujarat",
-      coverage: "Power-related incentives worth USD 38 billion",
-      features: [
-        "Capital subsidy protection",
-        "Electricity duty exemption insurance",
-        "SGST reimbursement coverage",
-      ],
-      icon: <MapPin className="w-6 h-6" />,
-    },
-    {
-      state: "Maharashtra",
-      coverage:
-        "Significant financial incentives for green hydrogen production",
-      features: [
-        "Infrastructure development subsidies",
-        "Tax incentive protection",
-        "Performance guarantee insurance",
-      ],
-      icon: <Building className="w-6 h-6" />,
-    },
-    {
-      state: "Tamil Nadu",
-      coverage: "Leading green hydrogen financial incentives",
-      features: [
-        "Port infrastructure development coverage",
-        "Export facilitation insurance",
-        "Renewable energy integration protection",
-      ],
-      icon: <TrendingUp className="w-6 h-6" />,
-    },
-    {
-      state: "Odisha",
-      coverage: "Financial incentives for green hydrogen production",
-      features: [
-        "Mining industry integration coverage",
-        "Industrial cluster development insurance",
-      ],
-      icon: <Zap className="w-6 h-6" />,
-    },
-  ];
 
   const insuranceCompanies = [
     {
@@ -215,27 +130,6 @@ const InsurancePage = () => {
     },
     { type: "Export Projects", range: "2.0% - 3.5%", basis: "of export value" },
   ];
-
-  const handleApplicationStart = () => {
-    try {
-      router.push("/insurance-manager");
-    } catch (error) {
-      console.error("Error navigating to application:", error);
-    }
-  };
-
-  const handleWhitepaperDownload = async () => {
-    try {
-      const response = await fetch("/api/download-whitepaper");
-      if (response.ok) {
-        window.open("/TrustChain-Whitepaper.pdf", "_blank");
-      } else {
-        console.error("Failed to download whitepaper");
-      }
-    } catch (error) {
-      console.error("Error downloading whitepaper:", error);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">

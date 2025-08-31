@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Search, Filter, Globe, DollarSign, Building, Calendar, ChevronDown, X, Eye, Sparkles } from "lucide-react";
+import { Search, Filter, Globe, DollarSign, Building, ChevronDown, X, Eye, Sparkles } from "lucide-react";
 import SubsidiesHeader from "@/components/subsidies-header";
 
 // Mock data for demonstration
@@ -104,7 +104,7 @@ export default function SubsidiesPortal() {
     setLoading(false);
   }, [allSubsidies, debouncedSearchTerm, filters]);
 
-  const filterSubsidies = (data: Subsidy[]) => {
+  const filterSubsidies = useCallback((data: Subsidy[]) => {
     return data.filter(subsidy => {
       // Search term matching (case-insensitive)
       const searchMatch = !debouncedSearchTerm || (
@@ -121,7 +121,7 @@ export default function SubsidiesPortal() {
 
       return searchMatch && countryMatch && programTypeMatch && statusMatch;
     });
-  };
+  }, [debouncedSearchTerm, filters]);
 
   const fetchSubsidies = useCallback(async () => {
     try {
@@ -155,7 +155,7 @@ export default function SubsidiesPortal() {
     } finally {
       setLoading(false);
     }
-  }, [filters, searchTerm]);
+  }, [filterSubsidies]);
 
   useEffect(() => {
     fetchSubsidies();

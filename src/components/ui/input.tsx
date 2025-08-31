@@ -10,11 +10,15 @@ type InputProps = Omit<React.ComponentProps<"input">, "children" | "dangerouslyS
 function Input({
   className,
   type,
-  // Intentionally swallow illegal props so they never reach the native input
-  children: _children,
-  dangerouslySetInnerHTML: _dangerouslySetInnerHTML,
+  // Intentionally omit these props so they never reach the native input
+  children,
+  dangerouslySetInnerHTML,
   ...props
 }: InputProps) {
+  // Explicitly ignore these props to satisfy the linter
+  void children;
+  void dangerouslySetInnerHTML;
+  
   return (
     <input
       type={type}

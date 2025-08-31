@@ -84,7 +84,7 @@ export default function ApplicationForm() {
         let respJson: ApplicationResponse = {};
         try {
           respJson = await response.json();
-        } catch (e) {
+        } catch {
           // ignore JSON parse errors, we'll use form values
         }
 

@@ -167,24 +167,16 @@ export default function CertificateClient() {
 
             <div className={styles.bottomRow}>
               <div className={styles.logoBlock}>
-                {logoUrl.startsWith("/") ? (
-                  <Image
-                    src={logoUrl}
-                    alt="Company Logo"
-                    className={styles.companyLogo}
-                    width={140}
-                    height={80}
-                  />
-                ) : (
-                  <img
-                    src={logoUrl}
-                    alt="Company Logo"
-                    className={styles.companyLogo}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/icon.png";
-                    }}
-                  />
-                )}
+                <Image
+                  src={logoUrl}
+                  alt="Company Logo"
+                  className={styles.companyLogo}
+                  width={140}
+                  height={80}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/icon.png";
+                  }}
+                />
                 <div className={styles.logoLabel}>Company Logo</div>
               </div>
 
